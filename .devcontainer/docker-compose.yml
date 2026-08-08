@@ -14,6 +14,16 @@ services:
       MANGAWEB_DB_TYPE: postgres
       MANGAWEB_ADDRESS: ":8972"
       MANGAWEB_DEBUG: "true"
+
+      OIDC_ENABLE: true
+      OIDC_CLIENT: client
+      OIDC_SECRET: secret
+      OIDC_AUTHORIZE: http://localhost:8080/connect/authorize
+      OIDC_TOKEN: http://localhost:8080/connect/token
+      OIDC_ISSUER: http://localhost:8080
+      OIDC_JWKS: http://localhost:8080/.well-known/jwks
+      OIDC_LOGOUT: http://localhost:8080/connect/logout
+
     depends_on:
       db:
         condition: service_healthy
@@ -33,17 +43,28 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d manga"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d manga" ]
       interval: 5s
       timeout: 5s
       retries: 10
     networks:
       - mangaweb
+  oidc:
+    ports:
+      - 8080:80
+    environment:
+      - DevOidcToolkit__Users__0__Email=test@localhost
+      - DevOidcToolkit__Users__0__FirstName=Test
+      - DevOidcToolkit__Users__0__LastName=User
+      - DevOidcToolkit__Clients__0__Id=client
+      - DevOidcToolkit__Clients__0__Secret=secret
+      - DevOidcToolkit__Clients__0__RedirectUris__INDEX=http://localhost:5173/login/callback
+    image: ghcr.io/businesssimulations/dev-oidc-toolkit
 
 volumes:
   postgres-data:
-  # go-mod-cache:
-  # go-build-cache:
+    # go-mod-cache:
+    # go-build-cache:
 
 networks:
   mangaweb:

@@ -3,7 +3,7 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
+  "runServices": ["oidc"],
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -36,7 +36,6 @@
         "ms-azuretools.vscode-docker",
         "mtxr.sqltools",
         "mtxr.sqltools-driver-pg",
-        "zxh404.vscode-proto3",
         "DrBlury.protobuf-vsc",
         "svelte.svelte-vscode",
         "bradlc.vscode-tailwindcss"
@@ -67,15 +66,19 @@
     }
   },
 
-  "forwardPorts": [8972, 5432],
+  "forwardPorts": [8972, "db:5432", "oidc:8080"],
   "portsAttributes": {
     "8972": {
       "label": "gRPC Server",
       "onAutoForward": "notify"
     },
-    "5432": {
+    "db:5432": {
       "label": "PostgreSQL",
       "onAutoForward": "silent"
+    },
+    "oidc:8080": {
+      "label": "OIDC Provider",
+      "onAutoForward": "notify"
     }
   },
 
