@@ -1,12 +1,11 @@
-FROM node:24-alpine
+FROM oven/bun:alpine
 
 WORKDIR /app
 
 COPY . .
 
-RUN npm ci
-RUN npm run build
-RUN npm prune --production
+RUN bun install
+RUN bun run build
 
 EXPOSE 3000
-CMD ["node", "build"]
+CMD ["node", "./build"]
