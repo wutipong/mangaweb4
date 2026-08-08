@@ -19,7 +19,10 @@
     },
     "ghcr.io/devcontainers-extra/features/apt-packages:1": {
       "packages": "protobuf-compiler,postgresql-client"
-    }
+    },
+    "ghcr.io/devcontainers-extra/features/bun:1": {
+      "version": "latest"
+    },
   },
 
   "customizations": {
