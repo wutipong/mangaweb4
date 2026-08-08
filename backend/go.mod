@@ -9,7 +9,7 @@ require (
 	github.com/disintegration/imaging v1.6.2
 	github.com/facette/natsort v0.0.0-20181210072756-2cd4dd1e2dcb
 	github.com/jackc/pgx/v5 v5.10.0
-	github.com/rs/zerolog v1.34.0
+	github.com/rs/zerolog v1.35.1
 	golang.org/x/image v0.44.0
 	google.golang.org/grpc v1.83.0
 	google.golang.org/protobuf v1.36.11
