@@ -23,11 +23,13 @@ export const load: PageServerLoad = async ({ url, fetch, cookies }) => {
 		})
 	});
 
+	logger.debug({resp}, 'OIDP token response.')
+
 	const tokens = await resp.json();
 
 	cookies.set('accessToken', tokens.access_token, { path: '/' });
 	cookies.set('idToken', tokens.id_token, { path: '/' });
 
-	logger.debug({ url, tokens }, 'OIDC login callback');
+	logger.debug({ code, url, tokens }, 'OIDC login callback');
 	redirect(307, targetUrl);
 };

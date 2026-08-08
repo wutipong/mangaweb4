@@ -16,13 +16,16 @@ services:
       MANGAWEB_DEBUG: "true"
 
       OIDC_ENABLE: true
-      OIDC_CLIENT: client
-      OIDC_SECRET: secret
-      OIDC_AUTHORIZE: http://localhost:8080/connect/authorize
-      OIDC_TOKEN: http://localhost:8080/connect/token
-      OIDC_ISSUER: http://localhost:8080
-      OIDC_JWKS: http://localhost:8080/.well-known/jwks
-      OIDC_LOGOUT: http://localhost:8080/connect/logout
+      OIDC_CLIENT: mangaweb4
+      OIDC_SECRET: mangaweb4-secret
+      OIDC_AUTHORIZE: http://localhost:5556/auth
+      OIDC_TOKEN: http://oidc:5556/token
+      OIDC_ISSUER: http://localhost:5556
+      OIDC_JWKS: http://oidc:5556/keys
+      OIDC_LOGOUT: http://localhost:5173/logout
+      OIDC_CONFIG: http://localhost:5556/.well-known/openid-configuration
+
+      LOG_LEVEL: debug
 
     depends_on:
       db:
@@ -50,17 +53,15 @@ services:
     networks:
       - mangaweb
   oidc:
+    image: ghcr.io/dexidp/dex:v2.41.0
+    command: dex serve /etc/dex/cfg/config.yaml
+    volumes:
+      - ./dex-config.yaml:/etc/dex/cfg/config.yaml:ro
     ports:
-      - 8080:80
-    environment:
-      - DevOidcToolkit__Users__0__Email=test@localhost
-      - DevOidcToolkit__Users__0__FirstName=Test
-      - DevOidcToolkit__Users__0__LastName=User
-      - DevOidcToolkit__Clients__0__Id=client
-      - DevOidcToolkit__Clients__0__Secret=secret
-      - DevOidcToolkit__Clients__0__RedirectUris__INDEX=http://localhost:5173/login/callback
-    image: ghcr.io/businesssimulations/dev-oidc-toolkit
-
+      - "5556:5556" # Maps the browser-facing localhost:5556 port
+    networks:
+      - mangaweb
+      
 volumes:
   postgres-data:
     # go-mod-cache:
