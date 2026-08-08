@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+service Maintenance {
+  rpc PurgeCache(MaintenancePurgeCacheRequest)
+      returns (MaintenancePurgeCacheResponse) {}
+  rpc UpdateLibrary(MaintenanceUpdateLibraryRequest)
+      returns (MaintenanceUpdateLibraryResponse) {}
+  rpc PopulateTags(MaintenancePopulateTagsRequest)
+      returns (MaintenancePopulateTagsResponse) {}
+}
+
+message MaintenancePurgeCacheRequest {}
+message MaintenancePurgeCacheResponse { bool IsSuccess = 1; }
+
+message MaintenanceUpdateLibraryRequest {}
+message MaintenanceUpdateLibraryResponse { bool IsSuccess = 1; }
+
+message MaintenancePopulateTagsRequest {}
+message MaintenancePopulateTagsResponse { bool IsSuccess = 1; }

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+service User {
+  rpc Info(UserInfoRequest) returns (UserInfoResponse) {}
+}
+
+message UserInfoRequest { string User = 1; }
+
+message UserInfoResponse {
+  int32 userId = 1;
+  int32 favoriteItemCount = 2;
+  int32 favoriteTagCount = 3;
+  int32 readItemCount = 4;
+}

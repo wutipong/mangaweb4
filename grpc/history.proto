@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+service History {
+  rpc List(HistoryListRequest) returns (HistoryListResponse) {}
+}
+
+message HistoryListRequest {
+  string User = 1;
+  int32 Page = 2;
+  int32 ItemPerPage = 3;
+}
+
+message HistoryListResponse {
+  int32 TotalPage = 1;
+  repeated HistoryListResponseItem Items = 2;
+}
+
+message HistoryListResponseItem {
+  int32 Id = 1;
+  string Name = 2;
+  bool IsFavorite = 3;
+  bool IsRead = 4;
+  int32 PageCount = 5;
+  google.protobuf.Timestamp AccessTime = 6;
+  bool HasFavoriteTag = 7;
+}

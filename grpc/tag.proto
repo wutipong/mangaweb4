@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+import "types.proto";
+
+service Tag {
+  rpc List(TagListRequest) returns (TagListResponse) {}
+  rpc Detail(TagDetailRequest) returns (TagDetailResponse) {}
+  rpc Thumbnail(TagThumbnailRequest) returns (TagThumbnailResponse) {}
+  rpc SetFavorite(TagSetFavoriteRequest) returns (TagSetFavoriteResponse) {}
+}
+
+message TagListRequest {
+  string User = 1;
+  reserved 2;
+  mangaweb4.types.Filter Filter = 3;
+  int32 Page = 4;
+  int32 ItemPerPage = 5;
+  string Search = 6;
+  mangaweb4.types.SortField Sort = 7;
+  mangaweb4.types.SortOrder Order = 8;
+}
+
+message TagListResponse {
+  bool TagFavorite = 1;
+  int32 TotalPage = 2;
+  repeated TagListResponseItem Items = 3;
+}
+
+message TagDetailRequest {
+  string User = 1;
+  int32 Id = 2;
+  int32 Page = 3;
+  int32 ItemPerPage = 4;
+  string Search = 5;
+  mangaweb4.types.Filter Filter = 6;
+  mangaweb4.types.SortField Sort = 7;
+  mangaweb4.types.SortOrder Order = 8;
+}
+
+message TagDetailResponse {
+  string Name = 1;
+  bool TagFavorite = 2;
+  int32 TotalItemCount = 3;
+  repeated TagDetailResponseItem Items = 4;
+}
+
+message TagDetailResponseItem {
+  int32 Id = 1;
+  string Name = 2;
+  bool IsFavorite = 3;
+  bool IsRead = 4;
+  int32 PageCount = 5;
+  bool HasFavoriteTag = 6;
+  int32 CurrentPage = 7;
+  int32 MaxProgress = 8;
+}
+
+message TagListResponseItem {
+  int32 Id = 1;
+  string Name = 2;
+  bool IsFavorite = 3;
+  bool IsRead = 4;
+  int32 PageCount = 5;
+  bool HasFavoriteTag = 6;
+}
+
+message TagThumbnailRequest {
+  reserved 1;
+  int32 Id = 2;
+}
+
+message TagThumbnailResponse {
+  string ContentType = 1;
+  bytes Data = 2;
+}
+
+message TagSetFavoriteRequest {
+  string User = 1;
+  reserved 2;
+  bool Favorite = 3;
+  int32 Id = 4;
+}
+
+message TagSetFavoriteResponse {
+  string Tag = 1;
+  bool Favorite = 2;
+}

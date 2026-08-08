@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package mangaweb4.types;
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+enum Filter {
+  FILTER_UNKNOWN = 0;
+  FILTER_FAVORITE_ITEMS = 1;
+  FILTER_FAVORITE_TAGS = 2;
+}
+
+enum SortField {
+  SORT_FIELD_NAME = 0;
+  SORT_FIELD_CREATION_TIME = 1;
+  SORT_FIELD_PAGECOUNT = 2;
+  SORT_FIELD_ITEMCOUNT = 3;
+  SORT_FIELD_LAST_UPDATE = 4;
+}
+
+enum SortOrder {
+  SORT_ORDER_ASCENDING = 0;
+  SORT_ORDER_DESCENDING = 1;
+}
+
+enum ImageQuality {
+  IMAGE_QUALITY_UNSPECIFIED = 0;
+  IMAGE_QUALITY_LOW = 1;
+  IMAGE_QUALITY_HIGH = 2;
+  IMAGE_QUALITY_ORIGINAL = 3;
+}

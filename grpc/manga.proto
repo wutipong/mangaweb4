@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+import "types.proto";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+service Manga {
+  rpc List(MangaListRequest) returns (MangaListResponse) {}
+  rpc Detail(MangaDetailRequest) returns (MangaDetailResponse) {}
+  rpc Thumbnail(MangaThumbnailRequest) returns (MangaThumbnailResponse) {}
+  rpc SetFavorite(MangaSetFavoriteRequest) returns (MangaSetFavoriteResponse) {}
+  rpc SetProgress(MangaSetProgressRequest) returns (MangaSetProgressResponse) {}
+  rpc UpdateCover(MangaUpdateCoverRequest) returns (MangaUpdateCoverResponse) {}
+  rpc PageImage(MangaPageImageRequest) returns (MangaPageImageResponse) {
+    option deprecated = true;
+  }
+  rpc PageImageStream(MangaPageImageRequest) returns (stream MangaPageImageStreamResponse) {}
+  rpc Repair(MangaRepairRequest) returns (MangaRepairResponse) {}
+  rpc Download(MangaDownloadRequest) returns (stream MangaDownloadResponse) {}
+}
+
+message MangaListRequest {
+  string User = 1;
+  reserved 2;
+  mangaweb4.types.Filter Filter = 3;
+  int32 Page = 4;
+  int32 ItemPerPage = 5;
+  string Search = 6;
+  mangaweb4.types.SortField Sort = 7;
+  mangaweb4.types.SortOrder Order = 8;
+}
+
+message MangaListResponse {
+  reserved 1;
+  int32 TotalPage = 2;
+  repeated MangaListResponseItem Items = 3;
+}
+
+message MangaListResponseItem {
+  int32 Id = 1;
+  string Name = 2;
+  bool IsFavorite = 3;
+  bool IsRead = 4;
+  int32 PageCount = 5;
+  bool HasFavoriteTag = 6;
+  int32 CurrentPage = 7;
+  int32 MaxProgress = 8;
+}
+
+message MangaThumbnailRequest {
+  reserved 1;
+  int32 Id = 2;
+}
+
+message MangaThumbnailResponse {
+  string ContentType = 1;
+  bytes Data = 2;
+}
+message MangaDetailRequest {
+  string User = 1;
+  reserved 2;
+  int32 Id = 3;
+}
+
+message MangaDetailResponse {
+  string Name = 1;
+  bool Favorite = 2;
+  int32 PageCount = 3;
+  int32 CurrentPage = 4;
+  repeated MangaDetailResponseTagItem Tags = 5;
+}
+
+message MangaDetailResponseTagItem {
+  int32 Id = 1;
+  string Name = 2;
+  bool IsFavorite = 3;
+  bool IsHidden = 4;
+}
+
+message MangaSetFavoriteRequest {
+  string User = 1;
+  reserved 2;
+  bool Favorite = 3;
+  int32 Id = 4;
+}
+
+message MangaSetFavoriteResponse {
+  string Name = 1;
+  bool Favorite = 2;
+}
+
+message MangaSetProgressRequest {
+  string User = 1;
+  reserved 2;
+  int32 Page = 3;
+  int32 Id = 4;
+}
+
+message MangaSetProgressResponse {
+  string User = 1;
+  string Name = 2;
+  int32 Page = 3;
+  bool Succeed = 4;
+}
+
+message MangaUpdateCoverRequest {
+  reserved 1;
+  int32 Index = 2;
+  int32 X = 3;
+  int32 Y = 4;
+  int32 Width = 5;
+  int32 Height = 6;
+  int32 Id = 7;
+}
+
+message MangaUpdateCoverResponse {
+  bool Success = 1;
+}
+
+message MangaPageImageRequest {
+  string User = 1;
+  reserved 2;
+  int32 Index = 3;
+  reserved 4;
+  reserved 5;
+  int32 Id = 6;
+  mangaweb4.types.ImageQuality Quality = 7;
+}
+
+message MangaPageImageResponse {
+  string ContentType = 1;
+  bytes Data = 2;
+}
+
+message MangaPageImageStreamResponse {
+  string Filename = 1;
+  string ContentType = 2;
+  bytes Data = 3;
+  int32 Size = 4;
+}
+
+message MangaRepairRequest {
+  reserved 1;
+  int32 Id = 3;
+}
+
+message MangaRepairResponse {
+  string Name = 1;
+  bool IsSuccess = 2;
+}
+message MangaDownloadRequest {
+  reserved 1;
+  int32 Id = 2;
+}
+
+message MangaDownloadResponse {
+  string Filename = 1;
+  string ContentType = 2;
+  bytes Data = 3;
+  int32 Size = 4;
+}

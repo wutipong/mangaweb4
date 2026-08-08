@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "github.com/mangaweb4/mangaweb4-backend/grpc";
+
+service System {
+  rpc Info(SystemInfoRequest) returns (SystemInfoResponse) {}
+}
+
+message SystemInfoRequest {}
+
+message SystemInfoResponse {
+  string Version = 1;
+  int32 ItemCount = 2;
+  int32 TagCount = 3;
+}
