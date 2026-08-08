@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/typography';
+@plugin 'daisyui';
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		background-image: none !important;
+	}
+}
+
+* {
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	touch-action: manipulation;
+}
