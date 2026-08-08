@@ -1,0 +1,7 @@
+__debug_bin*
+.DS_Store
+.env
+.idea
+cache
+.sqlite/*
+mangaweb4-backend
