@@ -5,12 +5,13 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { genericOAuth } from 'better-auth/plugins';
 import { apiKey } from '@better-auth/api-key';
+import 'dotenv/config';
 
 export const auth = betterAuth({
 	database: new Pool({
-        connectionString: env.MANGAWEB_DB,
-		options: '-c search_path=auth' 
-    }),	
+		connectionString: env.MANGAWEB_DB,
+		options: "-c search_path=auth"
+	}),
 	plugins: [
 		sveltekitCookies(getRequestEvent),
 		apiKey({

@@ -10,7 +10,12 @@ services:
       - go-build-cache:/home/vscode/.cache/go-build
     command: sleep infinity
     environment:
-      MANGAWEB_DB: postgres://postgres:password@db:5432/manga?sslmode=disable
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGDATABASE: postgres
+
+      MANGAWEB_DB: postgres://postgres:password@db:5432/postgres?sslmode=disable
       MANGAWEB_DB_TYPE: postgres
       MANGAWEB_ADDRESS: ":8972"
       MANGAWEB_DEBUG: "true"

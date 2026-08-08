@@ -22,7 +22,7 @@
     },
     
     "ghcr.io/devcontainers-extra/features/apt-packages:1": {
-      "packages": "postgresql-client",
+      "packages": "postgresql-client, python3"
     },
     "ghcr.io/devcontainers-extra/features/bun:1": {
       "version": "latest"
@@ -58,7 +58,7 @@
             "driver": "PostgreSQL",
             "server": "db",
             "port": 5432,
-            "database": "manga",
+            "database": "postgres",
             "username": "postgres",
             "password": "password"
           }
@@ -85,10 +85,6 @@
 
 
   "remoteEnv": {
-    "MANGAWEB_DB": "postgres://postgres:password@db:5432/manga?sslmode=disable",
-    "MANGAWEB_DB_TYPE": "postgres",
-    "MANGAWEB_ADDRESS": ":8972",
-    "MANGAWEB_DEBUG": "true",
     "MANGAWEB_DATA_PATH": "/workspaces/${localWorkspaceFolderBasename}/backend/data",
     "MANGAWEB_CACHE_PATH": "/workspaces/${localWorkspaceFolderBasename}/backend/cache"
   },
