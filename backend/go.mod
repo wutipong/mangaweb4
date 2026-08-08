@@ -8,7 +8,7 @@ require (
 	entgo.io/ent v0.14.5
 	github.com/disintegration/imaging v1.6.2
 	github.com/facette/natsort v0.0.0-20181210072756-2cd4dd1e2dcb
-	github.com/jackc/pgx/v5 v5.8.0
+	github.com/jackc/pgx/v5 v5.10.0
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/image v0.44.0
 	google.golang.org/grpc v1.83.0
