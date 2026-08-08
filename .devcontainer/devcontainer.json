@@ -29,7 +29,10 @@
         "ms-azuretools.vscode-docker",
         "mtxr.sqltools",
         "mtxr.sqltools-driver-pg",
-        "zxh404.vscode-proto3"
+        "zxh404.vscode-proto3",
+        "DrBlury.protobuf-vsc",
+        "svelte.svelte-vscode",
+        "bradlc.vscode-tailwindcss"
       ],
       "settings": {
         "go.toolsManagement.checkForUpdates": "local",
