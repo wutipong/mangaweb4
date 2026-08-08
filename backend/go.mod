@@ -5,7 +5,7 @@ go 1.26
 require github.com/joho/godotenv v1.5.1
 
 require (
-	entgo.io/ent v0.14.5
+	entgo.io/ent v0.14.6
 	github.com/disintegration/imaging v1.6.2
 	github.com/facette/natsort v0.0.0-20181210072756-2cd4dd1e2dcb
 	github.com/jackc/pgx/v5 v5.10.0
