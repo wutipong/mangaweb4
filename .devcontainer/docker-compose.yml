@@ -1,0 +1,50 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/${localWorkspaceFolderBasename:-mangaweb4}:cached
+      # Persist the Go module/build cache between rebuilds.
+      - go-mod-cache:/go/pkg/mod
+      - go-build-cache:/home/vscode/.cache/go-build
+    command: sleep infinity
+    environment:
+      MANGAWEB_DB: postgres://postgres:password@db:5432/manga?sslmode=disable
+      MANGAWEB_DB_TYPE: postgres
+      MANGAWEB_ADDRESS: ":8972"
+      MANGAWEB_DEBUG: "true"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mangaweb
+
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: manga
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d manga"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - mangaweb
+
+volumes:
+  postgres-data:
+  go-mod-cache:
+  go-build-cache:
+
+networks:
+  mangaweb:
+    driver: bridge
