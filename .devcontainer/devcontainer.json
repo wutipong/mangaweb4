@@ -38,7 +38,8 @@
         "mtxr.sqltools-driver-pg",
         "DrBlury.protobuf-vsc",
         "svelte.svelte-vscode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
       ],
       "settings": {
         "go.toolsManagement.checkForUpdates": "local",

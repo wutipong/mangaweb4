@@ -27,6 +27,9 @@ services:
 
       LOG_LEVEL: debug
 
+      BETTER_AUTH_SECRET: P1SF89ypV6TNDL60oR4tf2y8qCHaNPH3gcrDKQvThk=
+      BETTER_AUTH_URL: http://localhost:5173
+
     depends_on:
       db:
         condition: service_healthy
