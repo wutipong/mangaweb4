@@ -92,7 +92,5 @@
     "MANGAWEB_CACHE_PATH": "/workspaces/${localWorkspaceFolderBasename}/backend/cache"
   },
 
-  "postCreateCommand": "cd backend && go mod download",
-
   "remoteUser": "vscode"
 }

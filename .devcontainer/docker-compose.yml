@@ -6,8 +6,8 @@ services:
     volumes:
       - ..:/workspaces/${localWorkspaceFolderBasename:-mangaweb4}:cached
       # Persist the Go module/build cache between rebuilds.
-      # - go-mod-cache:/go/pkg/mod
-      # - go-build-cache:/home/vscode/.cache/go-build
+      - go-mod-cache:/go/pkg/mod
+      - go-build-cache:/home/vscode/.cache/go-build
     command: sleep infinity
     environment:
       MANGAWEB_DB: postgres://postgres:password@db:5432/manga?sslmode=disable
@@ -64,8 +64,8 @@ services:
       
 volumes:
   postgres-data:
-    # go-mod-cache:
-    # go-build-cache:
+  go-mod-cache:
+  go-build-cache:
 
 networks:
   mangaweb:
