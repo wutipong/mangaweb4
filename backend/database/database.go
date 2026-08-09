@@ -15,11 +15,7 @@ import (
 
 var pool *pgxpool.Pool
 
-var connectionStr string
-
 func Open(ctx context.Context, connStr string) error {
-	connectionStr = connStr
-
 	if p, e := pgxpool.New(ctx, connStr); e == nil {
 		pool = p
 		return nil
