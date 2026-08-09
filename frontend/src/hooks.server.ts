@@ -1,36 +1,13 @@
-import { validateSession, validateSessionWithHeader } from '$lib/auth.server';
 import type { Handle, ServerInit } from '@sveltejs/kit';
 import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
+import { svelteKitHandler } from 'better-auth/svelte-kit';
+import { auth } from '$lib/server/auth';
+import { building } from '$app/environment';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// '/api/maintenance' could be called by other services such as airflow.
-	if (
-		event.url.pathname.startsWith('/api/maintenance') &&
-		event.request.headers.has('Authorization')
-	) {
-		try {
-			validateSessionWithHeader(event.url, event.request);
-
-			const response = await resolve(event);
-			return response;
-		} catch (e) {
-			return new Response(JSON.stringify(e));
-		}
-	}
-
-	// '/url' handler handles anything related to authentication.
-	// Skip the validation to make sure the authentication is performed.
-	if (
-		!event.url.pathname.startsWith('/login') &&
-		!event.url.pathname.startsWith('/logout') &&
-		!event.url.pathname.startsWith('/.well-known')
-	) {
-		await validateSession(event.url, event.cookies);
-	}
-	const response = await resolve(event);
-	return response;
+	return svelteKitHandler({ event, resolve, auth, building });
 };
 
 export const init: ServerInit = async () => {

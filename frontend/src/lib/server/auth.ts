@@ -21,9 +21,13 @@ export const auth = betterAuth({
 			config: [
 				{
 					providerId: env.OIDC_PROVIDER_ID ?? '',
-					clientId: env.OIDC_CLIENT_ID ?? '',
+					clientId: env.OIDC_CLIENT ?? '',
 					clientSecret: env.OIDC_SECRET,
-					discoveryUrl: env.OIDC_DISCOVERY_URL ?? ''
+					issuer: env.OIDC_ISSUER,
+					tokenUrl: env.OIDC_LOGOUT,
+					requireIssuerValidation: false,
+					
+					// discoveryUrl: env.OIDC_DISCOVERY_URL ?? ''
 					// ... other config options
 				}
 				// Add more providers as needed
