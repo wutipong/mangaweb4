@@ -6,7 +6,7 @@ import { MangaClient } from '$lib/grpc/manga.client';
 import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
 import logger from '$lib/logger';
-import { auth } from '$lib/auth.server';
+import auth from '$lib/auth.server';
 
 function createDefaultRequest(): {
 	user: string;
@@ -44,7 +44,7 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
 
 	logger.info('session');
 	try {
-		const session = await auth.api.getSession({ headers: request.headers });
+		const session = await auth().api.getSession({ headers: request.headers });
 		logger.debug({ session }, 'session');
 		user = session?.user.email ?? '';
 	} catch (e) {

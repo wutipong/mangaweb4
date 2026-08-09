@@ -3,7 +3,7 @@ import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
-import { auth } from '$lib/auth.server';
+import auth from '$lib/auth.server';
 import { sequence } from '@sveltejs/kit/hooks';
 import { dev, building } from "$app/environment";
 import { getMigrations } from "better-auth/db/migration";
@@ -13,7 +13,7 @@ const runMigrations = async () => {
     if (dev || building) return;
 
     try {
-        const { runMigrations: execute } = await getMigrations(auth.options);
+        const { runMigrations: execute } = await getMigrations(auth().options);
         await execute();
         console.log("Better Auth database migrations applied.");
     } catch (e) {
@@ -32,7 +32,7 @@ export const init: ServerInit = async () => {
 
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
     // path to your auth file
-    const session = await auth.api.getSession({ headers: event.request.headers });
+    const session = await auth().api.getSession({ headers: event.request.headers });
 
     // Fetch current session from Better Auth
     if (session) {  
@@ -72,7 +72,7 @@ const handleSessionApiKey: Handle = async ({ event, resolve }) => {
         throw error(401, "apikey is missing.")
     }
 
-    const resp = await auth.api.verifyApiKey({
+    const resp = await auth().api.verifyApiKey({
         body: {
             key: apiKey,
         },
