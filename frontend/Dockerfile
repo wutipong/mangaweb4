@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . .
 
 RUN bun install
-RUN bun run build
+RUN NODE_ENV=development bun run build
 
 EXPOSE 3000
 CMD ["bun", "./build"]
