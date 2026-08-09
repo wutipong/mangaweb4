@@ -4,8 +4,26 @@ import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 import { auth } from '$lib/auth.server';
-import { building } from '$app/environment';
 import { sequence } from '@sveltejs/kit/hooks';
+import { dev, building } from "$app/environment";
+import { getMigrations } from "better-auth/db/migration";
+
+const runMigrations = async () => {
+    // Skip if we are in development mode OR currently building the app
+    if (dev || building) return;
+
+    try {
+        const { runMigrations: execute } = await getMigrations(auth.options);
+        await execute();
+        console.log("Better Auth database migrations applied.");
+    } catch (e) {
+        console.error("Better Auth migration failed:", e);
+        
+        process.exit(1); 
+    }
+};
+
+await runMigrations()
 
 export const init: ServerInit = async () => {
 	logger.level = env.LOG_LEVEL ?? 'info';
