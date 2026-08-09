@@ -37,7 +37,13 @@ export default defineConfig(({ mode }) => {
 					globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}']
 				},
 				workbox: {
-					globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}']
+					globPatterns: ['client/**/*.{js,css,ico,png,svg,webp,woff,woff2}'],
+					globIgnores: [
+						'client/favicon.svg',
+						'client/favicon.svg.gz',
+						'client/favicon.svg.br',
+						'client/favicon.afdesign'
+					]
 				},
 				devOptions: {
 					enabled: false,
