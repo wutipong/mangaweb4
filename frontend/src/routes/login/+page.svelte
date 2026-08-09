@@ -20,11 +20,10 @@
 	<Content>
 		<NavBar><div class="text-xl">Login</div></NavBar>
 		<div class="prose container mx-auto mt-4 max-w-5xl">
-			<h2>Login using OpenID Connect.</h2>
+			Welcome to Manga 4. To proceed to the system, please press the button below to begin OpenID
+			login process.
 
-			<div>
-				<button class="btn btn-primary w-full" onclick={() => login()}> Login </button>
-			</div>
+			<button class="btn btn-primary w-full" onclick={() => login()}> Login </button>
 		</div>
 	</Content>
 </Container>

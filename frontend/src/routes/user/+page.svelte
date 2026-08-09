@@ -12,7 +12,6 @@
 	import { Icon } from 'svelte-icon';
 	import logoutIcon from '@mdi/svg/svg/logout.svg?raw';
 	import { authClient } from '$lib/auth';
-	import { redirect } from '@sveltejs/kit';
 
 	let { email, name } = page.data;
 	let showMenu = $state(false);
@@ -21,7 +20,7 @@
 		await authClient.signOut({
 			fetchOptions: {
 				onSuccess: () => {
-					goto( '/login');
+					goto('/login');
 				}
 			}
 		});
@@ -45,10 +44,7 @@
 			<h2 class="mt-4">{name}</h2>
 			<p><b>Email</b> {email}</p>
 
-			<button
-				class="btn btn-primary btn-wide mt-4"
-				onclick={async () => await logout()}
-			>
+			<button class="btn btn-primary btn-wide mt-4" onclick={async () => await logout()}>
 				<Icon data={logoutIcon} />&nbsp;Logout
 			</button>
 
