@@ -5,12 +5,11 @@
 	import Content from '$lib/components/Content.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import SideBar from '$lib/components/SideBar.svelte';
-	import { logoutURL } from '$lib/routes';
 
 	import md5 from 'md5';
 
 	import Icon from 'mdi-svelte';
-	import {mdiLogout} from '@mdi/js';
+	import { mdiLogout } from '@mdi/js';
 	import { authClient } from '$lib/auth';
 
 	let { email, name } = page.data;
