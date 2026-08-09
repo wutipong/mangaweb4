@@ -26,7 +26,8 @@ export const auth = betterAuth({
 					issuer: env.OIDC_ISSUER,
 					tokenUrl: env.OIDC_TOKEN,
 					requireIssuerValidation: false,
-					
+					authorizationUrl: env.OIDC_AUTHORIZE,
+					scopes: ["openid", "email", "profile"],
 					// discoveryUrl: env.OIDC_DISCOVERY_URL ?? ''
 					// ... other config options
 				}

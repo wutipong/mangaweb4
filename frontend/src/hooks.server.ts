@@ -1,16 +1,74 @@
-import type { Handle, ServerInit } from '@sveltejs/kit';
+import { error, redirect, type Handle, type ServerInit } from '@sveltejs/kit';
 import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 import { auth } from '$lib/auth.server';
 import { building } from '$app/environment';
-
-export const handle: Handle = async ({ event, resolve }) => {
-	return svelteKitHandler({ event, resolve, auth, building });
-};
+import { sequence } from '@sveltejs/kit/hooks';
 
 export const init: ServerInit = async () => {
 	logger.level = env.LOG_LEVEL ?? 'info';
 	setLogger(logger);
 };
+
+const handleBetterAuth: Handle = async ({ event, resolve }) => {
+    // path to your auth file
+    const session = await auth.api.getSession({ headers: event.request.headers });
+
+    // Fetch current session from Better Auth
+    if (session) {  
+        event.locals.session = session.session;
+        event.locals.user = session.user;
+    }
+
+    return svelteKitHandler({ event, resolve, auth, building });
+};
+
+const handleSession: Handle = async ({ event, resolve }) => {
+    const apiKey = event.request.headers.get("x-api-key")
+    if (apiKey != null) {
+        return handleSessionApiKey({ event, resolve })
+    }
+
+    const session = event.locals.session;
+
+    if (event.url.pathname.startsWith('/login')) {
+        return resolve(event)
+    }
+
+    if (session == null) {
+        redirect(307, "/login")
+    }
+
+    if (Date.now() > session.expiresAt) {
+        redirect(307, "/login")
+    }
+
+    return resolve(event);
+}
+
+const handleSessionApiKey: Handle = async ({ event, resolve }) => {
+    const apiKey = event.request.headers.get("x-api-key")
+    if (!apiKey) {
+        throw error(401, "apikey is missing.")
+    }
+
+    const resp = await auth.api.verifyApiKey({
+        body: {
+            key: apiKey,
+        },
+    });
+
+    if (resp.error) {
+        throw resp.error.message
+    }
+
+    if (!resp.valid) {
+        throw error(401, "API key is invalid")
+    }
+
+    return resolve(event)
+}
+
+export const handle = sequence(handleBetterAuth, handleSession);
