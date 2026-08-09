@@ -1,39 +1,92 @@
-import { validateSession, validateSessionWithHeader } from '$lib/auth.server';
-import type { Handle, ServerInit } from '@sveltejs/kit';
+import { error, redirect, type Handle, type ServerInit } from '@sveltejs/kit';
 import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
+import { svelteKitHandler } from 'better-auth/svelte-kit';
+import { auth } from '$lib/auth.server';
+import { sequence } from '@sveltejs/kit/hooks';
+import { dev, building } from "$app/environment";
+import { getMigrations } from "better-auth/db/migration";
 
-export const handle: Handle = async ({ event, resolve }) => {
-	// '/api/maintenance' could be called by other services such as airflow.
-	if (
-		event.url.pathname.startsWith('/api/maintenance') &&
-		event.request.headers.has('Authorization')
-	) {
-		try {
-			validateSessionWithHeader(event.url, event.request);
+const runMigrations = async () => {
+    // Skip if we are in development mode OR currently building the app
+    if (dev || building) return;
 
-			const response = await resolve(event);
-			return response;
-		} catch (e) {
-			return new Response(JSON.stringify(e));
-		}
-	}
-
-	// '/url' handler handles anything related to authentication.
-	// Skip the validation to make sure the authentication is performed.
-	if (
-		!event.url.pathname.startsWith('/login') &&
-		!event.url.pathname.startsWith('/logout') &&
-		!event.url.pathname.startsWith('/.well-known')
-	) {
-		await validateSession(event.url, event.cookies);
-	}
-	const response = await resolve(event);
-	return response;
+    try {
+        const { runMigrations: execute } = await getMigrations(auth.options);
+        await execute();
+        console.log("Better Auth database migrations applied.");
+    } catch (e) {
+        console.error("Better Auth migration failed:", e);
+        
+        process.exit(1); 
+    }
 };
+
+await runMigrations()
 
 export const init: ServerInit = async () => {
 	logger.level = env.LOG_LEVEL ?? 'info';
 	setLogger(logger);
 };
+
+const handleBetterAuth: Handle = async ({ event, resolve }) => {
+    // path to your auth file
+    const session = await auth.api.getSession({ headers: event.request.headers });
+
+    // Fetch current session from Better Auth
+    if (session) {  
+        event.locals.session = session.session;
+        event.locals.user = session.user;
+    }
+
+    return svelteKitHandler({ event, resolve, auth, building });
+};
+
+const handleSession: Handle = async ({ event, resolve }) => {
+    const apiKey = event.request.headers.get("x-api-key")
+    if (apiKey != null) {
+        return handleSessionApiKey({ event, resolve })
+    }
+
+    const session = event.locals.session;
+
+    if (event.url.pathname.startsWith('/login')) {
+        return resolve(event)
+    }
+
+    if (session == null) {
+        redirect(307, "/login")
+    }
+
+    if (Date.now() > session.expiresAt) {
+        redirect(307, "/login")
+    }
+
+    return resolve(event);
+}
+
+const handleSessionApiKey: Handle = async ({ event, resolve }) => {
+    const apiKey = event.request.headers.get("x-api-key")
+    if (!apiKey) {
+        throw error(401, "apikey is missing.")
+    }
+
+    const resp = await auth.api.verifyApiKey({
+        body: {
+            key: apiKey,
+        },
+    });
+
+    if (resp.error) {
+        throw resp.error.message
+    }
+
+    if (!resp.valid) {
+        throw error(401, "API key is invalid")
+    }
+
+    return resolve(event)
+}
+
+export const handle = sequence(handleBetterAuth, handleSession);

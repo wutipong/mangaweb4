@@ -10,7 +10,12 @@ services:
       - go-build-cache:/home/vscode/.cache/go-build
     command: sleep infinity
     environment:
-      MANGAWEB_DB: postgres://postgres:password@db:5432/manga?sslmode=disable
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGDATABASE: postgres
+
+      MANGAWEB_DB: postgres://postgres:password@db:5432/postgres?sslmode=disable
       MANGAWEB_DB_TYPE: postgres
       MANGAWEB_ADDRESS: ":8972"
       MANGAWEB_DEBUG: "true"
@@ -18,14 +23,18 @@ services:
       OIDC_ENABLE: true
       OIDC_CLIENT: mangaweb4
       OIDC_SECRET: mangaweb4-secret
+      OIDC_PROVIDER_ID: dex
       OIDC_AUTHORIZE: http://localhost:5556/auth
       OIDC_TOKEN: http://oidc:5556/token
       OIDC_ISSUER: http://localhost:5556
       OIDC_JWKS: http://oidc:5556/keys
-      OIDC_LOGOUT: http://localhost:5173/logout
+      OIDC_LOGOUT: http://localhost:5173/login
       OIDC_CONFIG: http://localhost:5556/.well-known/openid-configuration
 
       LOG_LEVEL: debug
+
+      BETTER_AUTH_SECRET: P1SF89ypV6TNDL60oR4tf2y8qCHaNPH3gcrDKQvThk=
+      BETTER_AUTH_URL: http://localhost:5173
 
     depends_on:
       db:

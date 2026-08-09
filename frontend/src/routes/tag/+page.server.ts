@@ -10,20 +10,12 @@ import type { Cookies } from '@sveltejs/kit';
 
 export const prerender = false;
 
-function createDefaultRequest(
+async function createDefaultRequest(
 	request: Request,
 	cookies: Cookies
-): {
-	user: string;
-	filter: Filter;
-	order: SortOrder;
-	sort: SortField;
-	search: string;
-	page: number;
-	item_per_page: number;
-} {
+): Promise<{ user: string; filter: Filter; order: SortOrder; sort: SortField; search: string; page: number; item_per_page: number; }> {
 	return {
-		user: getUser(request, cookies),
+		user: await getUser(request, cookies),
 		search: '',
 		filter: Filter.UNKNOWN,
 		page: 0,
@@ -34,7 +26,7 @@ function createDefaultRequest(
 }
 
 export const load: PageServerLoad = async ({ request, url, cookies }) => {
-	const req = createDefaultRequest(request, cookies);
+	const req = await createDefaultRequest(request, cookies);
 
 	let { search, filter, page, item_per_page, order, sort } = req;
 	const user = req.user;

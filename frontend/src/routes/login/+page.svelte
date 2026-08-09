@@ -1,9 +1,15 @@
 <script lang="ts">
-	import { page } from '$app/state';
+	import { authClient } from '$lib/auth';
 	import Container from '$lib/components/Container.svelte';
 	import Content from '$lib/components/Content.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
-	import { loginUrl } from '$lib/routes';
+
+	var { data } = $props();
+	$inspect(data);
+
+	async function login() {
+		authClient.signIn.oauth2(data);
+	}
 </script>
 
 <svelte:head>
@@ -14,16 +20,10 @@
 	<Content>
 		<NavBar><div class="text-xl">Login</div></NavBar>
 		<div class="prose container mx-auto mt-4 max-w-5xl">
-			<h2>Login using OpenID Connect.</h2>
+			Welcome to Manga 4. To proceed to the system, please press the button below to begin OpenID
+			login process.
 
-			<div>
-				<a
-					class="btn btn-primary btn-wide"
-					href={loginUrl(page.url.origin, page.url.origin).toString()}
-				>
-					Login
-				</a>
-			</div>
+			<button class="btn btn-primary w-full" onclick={() => login()}> Login </button>
 		</div>
 	</Content>
 </Container>

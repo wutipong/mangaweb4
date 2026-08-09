@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ request, cookies, params }) => {
 	const { id } = params;
 	const idNo = parseInt(id);
 
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,

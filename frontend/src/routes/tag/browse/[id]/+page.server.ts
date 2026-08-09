@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ request, url, cookies, params }) =>
 	const id = parseInt(params.id ?? '');
 
 	const searchParams = url.searchParams;
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 	const filter = $enum(Filter).getValueOrDefault(searchParams.get('filter'), Filter.UNKNOWN);
 	const sort = $enum(SortField).getValueOrDefault(
 		searchParams.get('sort'),

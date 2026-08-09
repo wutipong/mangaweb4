@@ -17,7 +17,7 @@ export const GET: RequestHandler = async ({ request, cookies, url }) => {
 
 	const client = new MangaClient(transport);
 	const index = parseInt(url.searchParams.get('i') ?? '') || 0;
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 	const id = parseInt(url.searchParams.get('id') ?? '');
 	if (id == 0 || Number.isNaN(id)) {
 		error(404);

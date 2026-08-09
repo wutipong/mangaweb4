@@ -25,6 +25,4 @@ staticClients:
     secret: mangaweb4-secret
     name: "MangaWeb 4"
     redirectURIs:
-      - 'http://localhost:5173/login/callback' # Swap with your app's actual callback path
-      - 'http://localhost:4173/login/callback'
-      - 'http://localhost:3000/login/callback'
+      - 'http://localhost:5173/api/auth/oauth2/callback/dex'

@@ -1,12 +1,12 @@
 import type { PageServerLoad } from './$types';
 import variables from '$lib/variables.server';
-import { getUser } from '$lib/user.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { MangaClient } from '$lib/grpc/manga.client';
 import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
 import logger from '$lib/logger';
+import { auth } from '$lib/auth.server';
 
 function createDefaultRequest(): {
 	user: string;
@@ -42,7 +42,14 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
 	let { user, filter, order, page, search, sort } = req;
 	const item_per_page = req.item_per_page;
 
-	user = getUser(request, cookies);
+	logger.info('session');
+	try {
+		const session = await auth.api.getSession({ headers: request.headers });
+		logger.debug({ session }, 'session');
+		user = session?.user.email ?? '';
+	} catch (e) {
+		logger.error(e);
+	}
 
 	const params = url.searchParams;
 	if (params.has('filter')) {
