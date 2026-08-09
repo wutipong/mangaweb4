@@ -8,6 +8,7 @@ import { apiKey } from '@better-auth/api-key';
 import 'dotenv/config';
 
 export const auth = betterAuth({
+	secret: env.BETTER_AUTH_SECRET,
 	database: new Pool({
 		connectionString: env.MANGAWEB_DB,
 		options: "-c search_path=auth"
