@@ -1,5 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-name: docker-image
+name: Frontend docker image
 on:
   release:
     types: [published]
@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
-          file: Dockerfile
+          file: ./frontend/Dockerfile
           push: ${{ !env.ACT }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
