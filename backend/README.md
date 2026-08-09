@@ -20,17 +20,8 @@ By default, Postgres will be used.
 
 To change the database configuration, update two environment variables to suit your database setup. 
 
-**SQLite**
 
 ```sh
-MANGAWEB_DB_TYPE=sqlite3
-MANGAWEB_DB=file:db.sqlite3?cache=shared&_pragma=foreign_keys(1)
-```
-
-**Postgres**
-
-```sh
-MANGAWEB_DB=postgres
 MANGAWEB_DB=postgres://manga:password@host:5432/database
 ```
 
