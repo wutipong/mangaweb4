@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
-	import infoIcon from '@mdi/svg/svg/information-outline.svg?raw';
-	import successIcon from '@mdi/svg/svg/check.svg?raw';
-	import warningIcon from '@mdi/svg/svg/alert-circle-outline.svg?raw';
-	import errorIcon from '@mdi/svg/svg/alert-circle.svg?raw';
+	import Icon from 'mdi-svelte';
+	import { mdiInformationOutline, mdiCheck, mdiAlertCircleOutline, mdiAlertCircle } from '@mdi/js';
 
 	let messages: {
 		body: string;
@@ -27,13 +24,13 @@
 			class:alert-error={m.type == 'error'}
 		>
 			{#if m.type == 'info'}
-				<Icon data={infoIcon} />
+				<Icon path={mdiInformationOutline} />
 			{:else if m.type == 'success'}
-				<Icon data={successIcon} />
+				<Icon path={mdiCheck} />
 			{:else if m.type == 'warning'}
-				<Icon data={warningIcon} />
+				<Icon path={mdiAlertCircleOutline} />
 			{:else if m.type == 'error'}
-				<Icon data={errorIcon} />
+				<Icon path={mdiAlertCircle} />
 			{/if}
 			<span>{m.body}</span>
 		</div>

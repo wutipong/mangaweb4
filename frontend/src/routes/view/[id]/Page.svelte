@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
-	import errorIcon from '@mdi/svg/svg/alert-circle.svg?raw';
+	import Icon from 'mdi-svelte';
+	import { mdiAlertCircle } from '@mdi/js';
 	import logger from '$lib/logger';
 
 	let { alt, src, grayscale = true, onLoaded = () => {} } = $props();
@@ -55,8 +55,8 @@
 			<span class="loading loading-bars loading-xl mx-auto my-auto"></span>
 		</div>
 	{:else if error}
-		<div class="absolute inset-1/2 place-self-center">
-			<Icon data={errorIcon} width="64" height="64" class="fill-error stroke-error" />
+		<div class="absolute inset-1/2 place-self-center text-error">
+			<Icon path={mdiAlertCircle} size="64"/>
 		</div>
 	{/if}
 </div>

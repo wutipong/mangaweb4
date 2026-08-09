@@ -8,8 +8,8 @@
 	import NavBar from '$lib/components/NavBar.svelte';
 	import Toast from '$lib/components/Toast.svelte';
 
-	import { Icon } from 'svelte-icon';
-	import viewIcon from '@mdi/svg/svg/book-open.svg?raw';
+	import Icon from 'mdi-svelte';
+	import { mdiBookOpen } from '@mdi/js';
 	import { goto } from '$app/navigation';
 	import { viewURL } from '$lib/routes';
 
@@ -97,7 +97,7 @@
 		<ul class="menu">
 			<li>
 				<button onclick={() => goto(viewURL(page.url, data.request.id))}>
-					<Icon data={viewIcon} class="fill-slate-400 stroke-slate-800" /> View current item.
+					<Icon path={mdiBookOpen} /> View current item.
 				</button>
 			</li>
 		</ul>

@@ -15,8 +15,8 @@
 	import BottomNav from '$lib/components/BottomNav.svelte';
 	import ItemCardGrid from '$lib/components/ItemCardGrid.svelte';
 
-	import { Icon } from 'svelte-icon';
-	import filterIcon from '@mdi/svg/svg/filter-menu.svg?raw';
+	import Icon from 'mdi-svelte';
+	import { mdiFilterMenu } from '@mdi/js';
 	import FilterPanel from './FilterPanel.svelte';
 
 	let toast: Toast;
@@ -90,7 +90,7 @@
 			<div class="bg-base-200 sticky top-16 z-1 flex w-full py-4 md:hidden">
 				<div class="flex-1"></div>
 				<button class="btn btn-ghost" onclick={() => filterDialog.showModal()}>
-					<Icon data={filterIcon} class="fill-slate-400 stroke-slate-800" /> Option
+					<Icon path={mdiFilterMenu}  /> Option
 				</button>
 			</div>
 			<div
