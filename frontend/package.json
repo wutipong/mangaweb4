@@ -28,7 +28,7 @@
 		"@types/bootstrap": "^5.2.11",
 		"@types/fs-extra": "^11.0.4",
 		"@types/md5": "^2.3.6",
-		"@types/node": "^25.5.0",
+		"@types/node": "^26.1.2",
 		"@types/path-browserify": "^1.0.3",
 		"@typescript-eslint/eslint-plugin": "^8.57.2",
 		"@typescript-eslint/parser": "^8.57.2",
