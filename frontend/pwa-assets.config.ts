@@ -1,22 +1,36 @@
 import {
 	createAppleSplashScreens,
+	defaultAssetName,
+	defaultSplashScreenName,
 	defineConfig,
 	minimal2023Preset
 } from '@vite-pwa/assets-generator/config';
 
-const preset = minimal2023Preset;
-preset.transparent.resizeOptions = {
-	fit: 'contain',
-	background: '#222222'
-};
-preset.maskable.resizeOptions = {
-	fit: 'contain',
-	background: '#222222'
-};
-
-preset.apple.resizeOptions = {
-	fit: 'contain',
-	background: '#222222'
+const preset = {
+	...minimal2023Preset,
+	transparent: {
+		...minimal2023Preset.transparent,
+		resizeOptions: {
+			fit: 'contain',
+			background: '#222222'
+		},
+		favicons: [[48, 'pwa/favicon.ico']]
+	},
+	maskable: {
+		...minimal2023Preset.maskable,
+		resizeOptions: {
+			fit: 'contain',
+			background: '#222222'
+		}
+	},
+	apple: {
+		...minimal2023Preset.apple,
+		resizeOptions: {
+			fit: 'contain',
+			background: '#222222'
+		}
+	},
+	assetName: (type, size) => `pwa/${defaultAssetName(type, size)}`
 };
 
 preset.appleSplashScreens = createAppleSplashScreens(
@@ -27,14 +41,16 @@ preset.appleSplashScreens = createAppleSplashScreens(
 			log: true,
 			addMediaScreen: true,
 			xhtml: true
-		}
+		},
+		name: (landscape, size) => `pwa/${defaultSplashScreenName(landscape, size)}`
 	},
 	['iPad Air 9.7"']
 );
 
 export default defineConfig({
 	headLinkOptions: {
-		preset: '2023'
+		preset: '2023',
+		resolveSvgName: () => 'pwa/favicon.svg'
 	},
 	preset: preset,
 	images: 'static/favicon.svg'
