@@ -2,91 +2,95 @@ import { error, redirect, type Handle, type ServerInit } from '@sveltejs/kit';
 import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
-import { svelteKitHandler } from 'better-auth/svelte-kit';
 import auth from '$lib/auth.server';
 import { sequence } from '@sveltejs/kit/hooks';
 import { dev, building } from "$app/environment";
 import { getMigrations } from "better-auth/db/migration";
 
-const runMigrations = async () => {
-    // Skip if we are in development mode OR currently building the app
-    if (dev || building) return;
-
-    try {
-        const { runMigrations: execute } = await getMigrations(auth().options);
-        await execute();
-        console.log("Better Auth database migrations applied.");
-    } catch (e) {
-        console.error("Better Auth migration failed:", e);
-        
-        process.exit(1); 
-    }
-};
-
-await runMigrations()
-
+// 1. Safe, deferred migrations. Runs strictly inside init() when the container starts.
 export const init: ServerInit = async () => {
 	logger.level = env.LOG_LEVEL ?? 'info';
 	setLogger(logger);
+
+	if (!dev && !building) {
+		try {
+			const { runMigrations: execute } = await getMigrations(auth().options);
+			await execute();
+			console.log("Better Auth database migrations applied.");
+		} catch (e) {
+			console.error("Better Auth migration failed:", e);
+			process.exit(1); 
+		}
+	}
 };
 
+// 2. Route-isolated Auth Handler (completely skips global `svelteKitHandler`)
 const handleBetterAuth: Handle = async ({ event, resolve }) => {
-    // path to your auth file
-    const session = await auth().api.getSession({ headers: event.request.headers });
+	// Directly intercept auth endpoints without executing broken global checks
+	if (event.url.pathname.startsWith('/api/auth')) {
+		return auth().handler(event.request);
+	}
 
-    // Fetch current session from Better Auth
-    if (session) {  
-        event.locals.session = session.session;
-        event.locals.user = session.user;
-    }
+	// Fetch current session safely from Better Auth for standard pages
+	try {
+		const session = await auth().api.getSession({ headers: event.request.headers });
+		if (session) {  
+			event.locals.session = session.session;
+			event.locals.user = session.user;
+		}
+	} catch (e) {
+		console.error("Failed to fetch session:", e);
+		event.locals.session = null;
+		event.locals.user = null;
+	}
 
-    return svelteKitHandler({ event, resolve, auth, building });
+	return resolve(event);
 };
 
-const handleSession: Handle = async ({ event, resolve }) => {
-    const apiKey = event.request.headers.get("x-api-key")
-    if (apiKey != null) {
-        return handleSessionApiKey({ event, resolve })
-    }
-
-    const session = event.locals.session;
-
-    if (event.url.pathname.startsWith('/login')) {
-        return resolve(event)
-    }
-
-    if (session == null) {
-        redirect(307, "/login")
-    }
-
-    if (Date.now() > session.expiresAt) {
-        redirect(307, "/login")
-    }
-
-    return resolve(event);
-}
-
+// 3. API Key Request Middleware
 const handleSessionApiKey: Handle = async ({ event, resolve }) => {
-    const apiKey = event.request.headers.get("x-api-key")
-    if (!apiKey) {
-        throw error(401, "apikey is missing.")
-    }
+	const apiKey = event.request.headers.get("x-api-key");
+	if (!apiKey) {
+		throw error(401, "apikey is missing.");
+	}
 
-    const resp = await auth().api.verifyApiKey({
-        body: {
-            key: apiKey,
-        },
-    });
+	const resp = await auth().api.verifyApiKey({
+		body: { key: apiKey },
+	});
 
-    if (resp.error) {
-        throw resp.error.message
-    }
+	if (resp.error) {
+		throw error(401, resp.error.message || "API key error");
+	}
 
-    if (!resp.valid) {
-        throw error(401, "API key is invalid")
-    }
+	if (!resp.valid) {
+		throw error(401, "API key is invalid");
+	}
 
-    return resolve(event)
-}
+	return resolve(event);
+};
+
+// 4. Session Validation and Guarding Middleware
+const handleSession: Handle = async ({ event, resolve }) => {
+	const apiKey = event.request.headers.get("x-api-key");
+	if (apiKey != null) {
+		return handleSessionApiKey({ event, resolve });
+	}
+
+	if (event.url.pathname.startsWith('/login')) {
+		return resolve(event);
+	}
+
+	const session = event.locals.session;
+
+	if (session == null) {
+		throw redirect(307, "/login");
+	}
+
+	if (Date.now() > new Date(session.expiresAt).getTime()) {
+		throw redirect(307, "/login");
+	}
+
+	return resolve(event);
+};
 
 export const handle = sequence(handleBetterAuth, handleSession);

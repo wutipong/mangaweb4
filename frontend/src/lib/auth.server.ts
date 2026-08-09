@@ -7,19 +7,13 @@ import { genericOAuth } from 'better-auth/plugins';
 import { apiKey } from '@better-auth/api-key';
 import 'dotenv/config';
 
-// 1. Establish build-time fallbacks to prevent SvelteKit compiler crashes
-const isBuild = typeof process !== 'undefined' && process.env.NODE_ENV === 'production' && !env.BETTER_AUTH_URL;
-
-const baseURL = env.BETTER_AUTH_URL || 'http://localhost:5173';
-const secret = env.BETTER_AUTH_SECRET || 'placeholder_secret_for_build_step_only';
-const dbConnectionString = env.MANGAWEB_DB || 'postgresql://localhost:5432/placeholder';
-
-// 2. Initialize statically so Better Auth's plugin tree constructs safely
+// Create a safe build-time / initial module load validation proxy
 export const auth = betterAuth({
-	secret: secret,
-	baseURL: baseURL, 
+	// Use process.env as a fallback because $env/dynamic/private is sometimes blank during early module evaluation
+	secret: env.BETTER_AUTH_SECRET || process.env.BETTER_AUTH_SECRET || 'placeholder_secret_for_build_step_only',
+	baseURL: env.BETTER_AUTH_URL || process.env.BETTER_AUTH_URL || 'http://localhost:5173', 
 	database: new Pool({
-		connectionString: dbConnectionString,
+		connectionString: env.MANGAWEB_DB || process.env.MANGAWEB_DB || 'postgresql://localhost:5432/placeholder',
 		options: '-c search_path=auth'
 	}),
 	plugins: [
@@ -30,7 +24,6 @@ export const auth = betterAuth({
 		genericOAuth({
 			config: [
 				{
-					// Provide fallback strings instead of undefined or short-circuiting empty strings
 					providerId: env.OIDC_PROVIDER_ID || 'placeholder-provider',
 					clientId: env.OIDC_CLIENT || 'placeholder-client',
 					clientSecret: env.OIDC_SECRET || 'placeholder-secret',
@@ -45,5 +38,4 @@ export const auth = betterAuth({
 	]
 });
 
-// Keeps backward compatibility with your factory imports if needed elsewhere
 export default () => auth;
