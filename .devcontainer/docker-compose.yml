@@ -27,7 +27,7 @@ services:
       OIDC_TOKEN: http://oidc:5556/token
       OIDC_ISSUER: http://localhost:5556
       OIDC_JWKS: http://oidc:5556/keys
-      OIDC_LOGOUT: http://localhost:5173/logout
+      OIDC_LOGOUT: http://localhost:5173/login
       OIDC_CONFIG: http://localhost:5556/.well-known/openid-configuration
 
       LOG_LEVEL: debug
