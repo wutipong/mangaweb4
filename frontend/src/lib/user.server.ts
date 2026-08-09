@@ -1,6 +1,6 @@
 
 import type { Cookies } from '@sveltejs/kit';
-import {auth} from '$lib/server/auth'
+import {auth} from '$lib/auth.server'
 
 export async function getUser(request: Request, cookies: Cookies): Promise<string> {
 	const session = await auth.api.getSession({headers: request.headers})

@@ -24,7 +24,7 @@ export const auth = betterAuth({
 					clientId: env.OIDC_CLIENT ?? '',
 					clientSecret: env.OIDC_SECRET,
 					issuer: env.OIDC_ISSUER,
-					tokenUrl: env.OIDC_LOGOUT,
+					tokenUrl: env.OIDC_TOKEN,
 					requireIssuerValidation: false,
 					
 					// discoveryUrl: env.OIDC_DISCOVERY_URL ?? ''

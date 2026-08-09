@@ -3,7 +3,7 @@ import logger from '$lib/logger';
 import { setLogger } from '@grpc/grpc-js/build/src/logging';
 import { env } from '$env/dynamic/private';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
-import { auth } from '$lib/server/auth';
+import { auth } from '$lib/auth.server';
 import { building } from '$app/environment';
 
 export const handle: Handle = async ({ event, resolve }) => {
