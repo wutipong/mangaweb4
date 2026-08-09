@@ -65,7 +65,7 @@
 		"@protobuf-ts/runtime-rpc": "^2.11.1",
 		"@rwh/keystrokes": "^1.5.6",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
-		"@tailwindcss/vite": "^4.2.2",
+		"@tailwindcss/vite": "^4.3.3",
 		"@types/hammerjs": "^2.0.46",
 		"@types/pg": "^8.21.0",
 		"@types/to-px": "^1.1.4",
