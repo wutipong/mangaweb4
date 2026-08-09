@@ -125,7 +125,7 @@
 							<td class="align-middle"> Update library </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmUpdateLibrary()}>
-									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} />&nbsp;Run
 								</button>
 							</td>
 						</tr>
@@ -133,7 +133,7 @@
 							<td class="align-middle"> Repopulate tags </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmPopulateTags()}>
-									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} />&nbsp;Run
 								</button>
 							</td>
 						</tr>
@@ -141,7 +141,7 @@
 							<td class="align-middle"> Purge caches </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmPurgeCache()}>
-									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} />&nbsp;Run
 								</button>
 							</td>
 						</tr>
