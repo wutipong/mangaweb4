@@ -1,6 +1,5 @@
 import type { PageServerLoad } from './$types';
 import variables from '$lib/variables.server';
-import { getUser } from '$lib/user.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { MangaClient } from '$lib/grpc/manga.client';

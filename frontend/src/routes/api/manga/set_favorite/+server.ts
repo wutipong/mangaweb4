@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ request, url, cookies }) => {
 	});
 
 	const client = new MangaClient(transport);
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 	const favorite = url.searchParams.get('favorite')?.toLocaleLowerCase() == 'true';
 	const id = parseInt(url.searchParams.get('id') ?? '');
 

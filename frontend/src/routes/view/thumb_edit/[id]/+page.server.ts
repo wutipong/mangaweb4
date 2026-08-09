@@ -11,7 +11,7 @@ export const prerender = false;
 export const load: PageServerLoad = async ({ request, cookies, params }) => {
 	const { id } = params;
 
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,

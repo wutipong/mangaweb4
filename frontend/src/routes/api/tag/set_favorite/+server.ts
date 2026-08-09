@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ request, cookies }) => {
 	const client = new TagClient(transport);
 	const url = new URL(request.url);
 
-	const user = getUser(request, cookies);
+	const user = await getUser(request, cookies);
 	const favorite = url.searchParams.get('favorite')?.toLowerCase() == 'true';
 	const id = parseInt(url.searchParams.get('id') ?? '');
 	const { response } = await client.setFavorite({ id: id, user, favorite });
