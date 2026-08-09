@@ -1,3 +1,0 @@
-[submodule "grpc/schema"]
-	path = grpc/schema
-	url = https://github.com/mangaweb4/mangaweb4-grpc-schema
