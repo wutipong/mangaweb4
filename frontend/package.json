@@ -70,7 +70,7 @@
 		"@types/pg": "^8.21.0",
 		"@types/to-px": "^1.1.4",
 		"better-auth": "^1.6.26",
-		"daisyui": "^5.5.19",
+		"daisyui": "^5.7.16",
 		"dotenv": "^17.4.2",
 		"embla-carousel-svelte": "^8.6.0",
 		"fs-extra": "^11.3.4",
