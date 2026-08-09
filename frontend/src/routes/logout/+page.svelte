@@ -3,9 +3,16 @@
 	import Content from '$lib/components/Content.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import { authClient } from '$lib/auth';
+	import { redirect } from '@sveltejs/kit';
 
 	async function logOut() {
-		await authClient.signOut();
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					redirect(307, '/login');
+				}
+			}
+		});
 	}
 </script>
 
@@ -17,7 +24,7 @@
 	<Content>
 		<NavBar><div class="text-xl">Logout</div></NavBar>
 		<div class="prose container mx-auto mt-4 max-w-5xl">
-			<button class="btn btn-wide btn-primary" onclick={async () => logOut()}>Logout</button>
+			You have signed out of the system. To sign back in, please click <a href="/login">login</a>
 		</div>
 	</Content>
 </Container>

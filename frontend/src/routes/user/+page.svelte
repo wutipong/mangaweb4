@@ -11,9 +11,21 @@
 
 	import { Icon } from 'svelte-icon';
 	import logoutIcon from '@mdi/svg/svg/logout.svg?raw';
+	import { authClient } from '$lib/auth';
+	import { redirect } from '@sveltejs/kit';
 
 	let { email, name } = page.data;
 	let showMenu = $state(false);
+
+	async function logout() {
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					goto( '/login');
+				}
+			}
+		});
+	}
 </script>
 
 <svelte:head>
@@ -35,7 +47,7 @@
 
 			<button
 				class="btn btn-primary btn-wide mt-4"
-				onclick={() => goto(logoutURL(page.url.origin))}
+				onclick={async () => await logout()}
 			>
 				<Icon data={logoutIcon} />&nbsp;Logout
 			</button>
