@@ -26,7 +26,7 @@
 		"@sveltejs/adapter-node": "^5.5.4",
 		"@sveltejs/kit": "^2.55.0",
 		"@tailwindcss/typography": "^0.5.20",
-		"@types/bootstrap": "^5.2.10",
+		"@types/bootstrap": "^5.2.11",
 		"@types/fs-extra": "^11.0.4",
 		"@types/md5": "^2.3.6",
 		"@types/node": "^25.5.0",
