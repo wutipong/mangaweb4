@@ -24,7 +24,7 @@
 		"@protobuf-ts/plugin": "^2.11.1",
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltejs/adapter-node": "^5.5.4",
-		"@sveltejs/kit": "^2.55.0",
+		"@sveltejs/kit": "^2.70.2",
 		"@tailwindcss/typography": "^0.5.20",
 		"@types/bootstrap": "^5.2.11",
 		"@types/fs-extra": "^11.0.4",
