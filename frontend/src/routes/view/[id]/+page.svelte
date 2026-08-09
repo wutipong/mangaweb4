@@ -223,7 +223,7 @@
 						aboutDialog.showModal();
 					}}
 				>
-					<Icon path={mdiInformationOutline}  /> Information
+					<Icon path={mdiInformationOutline} /> Information
 				</button>
 			</li>
 			<li>
@@ -231,10 +231,11 @@
 					class="btn btn-soft"
 					class:bg-pink-200={favorite}
 					class:text-pink-800={favorite}
+					class:fill-pink-400={favorite}
 					onclick={() => toggleFavorite()}
 				>
 					{#if favorite}
-						<Icon path={mdiHeart} color="oklch(71.8% 0.202 349.761)" /> Favorite
+						<Icon path={mdiHeart} /> Favorite
 					{:else}
 						<Icon path={mdiHeartOutline} /> Favorite
 					{/if}
@@ -245,7 +246,7 @@
 			{#each tags as t (t.id)}
 				<li>
 					<button onclick={() => goto(browseTagURL(page.url, t.id))}>
-						<Icon path={mdiTag}  />
+						<Icon path={mdiTag} />
 						{t.name}
 					</button>
 				</li>
@@ -254,25 +255,25 @@
 			<li class="menu-title">Tools</li>
 			<li>
 				<button onclick={() => downloadPage()}>
-					<Icon path={mdiDownloadBox}  /> Download current page
+					<Icon path={mdiDownloadBox} /> Download current page
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => downloadManga()}>
-					<Icon path={mdiDownload}  /> Download
+					<Icon path={mdiDownload} /> Download
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => changeThumbnail()}>
-					<Icon path={mdiImage}  /> Change thumbnail
+					<Icon path={mdiImage} /> Change thumbnail
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => fixMetaData()}>
-					<Icon path={mdiTools}  /> Fix item metadata
+					<Icon path={mdiTools} /> Fix item metadata
 				</button>
 			</li>
 
@@ -289,7 +290,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon path={mdiMotionPause}  /> Reduce Motion
+					<Icon path={mdiMotionPause} /> Reduce Motion
 				</button>
 			</li>
 			<li class:menu-active={options.grayscale}>
@@ -300,7 +301,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon path={mdiSquareOpacity}  /> Grayscale
+					<Icon path={mdiSquareOpacity} /> Grayscale
 				</button>
 			</li>
 
@@ -313,7 +314,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon path={mdiSquareRounded}  /> Original
+					<Icon path={mdiSquareRounded} /> Original
 				</button>
 			</li>
 			<li class:menu-active={quality === ImageQuality.HIGH}>
@@ -324,7 +325,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon path={mdiQualityHigh}  /> High
+					<Icon path={mdiQualityHigh} /> High
 				</button>
 			</li>
 
@@ -336,7 +337,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon path={mdiQualityLow}  /> Low
+					<Icon path={mdiQualityLow} /> Low
 				</button>
 			</li>
 		</ul>
