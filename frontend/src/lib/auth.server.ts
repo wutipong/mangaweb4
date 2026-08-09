@@ -13,6 +13,7 @@ export default () => {
 	if (!authInstance) {
 		authInstance = betterAuth({
 			secret: env.BETTER_AUTH_SECRET,
+			baseURL: env.BETTER_AUTH_URL,
 			database: new Pool({
 				connectionString: env.MANGAWEB_DB,
 				options: '-c search_path=auth'
