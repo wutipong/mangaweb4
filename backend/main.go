@@ -9,7 +9,6 @@ import (
 	"runtime/debug"
 	"strconv"
 
-	"entgo.io/ent/dialect"
 	"github.com/joho/godotenv"
 	"github.com/mangaweb4/mangaweb4-backend/configuration"
 	"github.com/mangaweb4/mangaweb4-backend/database"
@@ -99,11 +98,6 @@ func main() {
 		connectionStr = value
 	}
 
-	dbType := dialect.Postgres
-	if value, valid := os.LookupEnv("MANGAWEB_DB_TYPE"); valid {
-		dbType = value
-	}
-
 	firstLevelDirAsTag := false
 	if value, valid := os.LookupEnv("MANGAWEB_FIRST_LEVEL_DIR_AS_TAG"); valid {
 		firstLevelDirAsTag, _ = strconv.ParseBool(value)
@@ -124,8 +118,8 @@ func main() {
 		FirstLevelDirAsTag: firstLevelDirAsTag,
 	})
 
-	log.Info().Str("dbType", dbType).Str("dbConnection", connectionStr).Msg("Database open.")
-	if err := database.Open(ctx, dbType, connectionStr); err != nil {
+	log.Info().Str("dbConnection", connectionStr).Msg("Database open.")
+	if err := database.Open(ctx, connectionStr); err != nil {
 		log.Error().Err(err).Msg("Connect to Database fails")
 		return
 	} else {

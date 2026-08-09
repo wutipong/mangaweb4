@@ -55,7 +55,6 @@ require (
 )
 
 require (
-	github.com/go-sql-driver/mysql v1.10.0
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/exp v0.0.0-20251219203646-944ab1f22d93
 	golang.org/x/text v0.40.0 // indirect
