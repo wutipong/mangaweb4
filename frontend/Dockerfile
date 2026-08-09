@@ -17,6 +17,9 @@ RUN bunx svelte-kit sync
 # Build the application
 RUN bun run build
 
+# Remove static copies of PWA source assets; PWA assets live in build/client/pwa
+RUN rm -f build/client/favicon.svg build/client/favicon.svg.br build/client/favicon.svg.gz build/client/favicon.afdesign
+
 # Production stage
 FROM oven/bun:alpine
 
