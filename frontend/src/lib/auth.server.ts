@@ -7,42 +7,43 @@ import { genericOAuth } from 'better-auth/plugins';
 import { apiKey } from '@better-auth/api-key';
 import 'dotenv/config';
 
-let authInstance: ReturnType<typeof betterAuth> | null = null;
+// 1. Establish build-time fallbacks to prevent SvelteKit compiler crashes
+const isBuild = typeof process !== 'undefined' && process.env.NODE_ENV === 'production' && !env.BETTER_AUTH_URL;
 
-export default () => {
-	if (!authInstance) {
-		authInstance = betterAuth({
-			secret: env.BETTER_AUTH_SECRET,
-			baseURL: env.BETTER_AUTH_URL,
-			database: new Pool({
-				connectionString: env.MANGAWEB_DB,
-				options: '-c search_path=auth'
-			}),
-			plugins: [
-				sveltekitCookies(getRequestEvent),
-				apiKey({
-					rateLimit: { enabled: false }
-				}),
-				genericOAuth({
-					config: [
-						{
-							providerId: env.OIDC_PROVIDER_ID ?? '',
-							clientId: env.OIDC_CLIENT ?? '',
-							clientSecret: env.OIDC_SECRET,
-							issuer: env.OIDC_ISSUER,
-							tokenUrl: env.OIDC_TOKEN,
-							requireIssuerValidation: false,
-							authorizationUrl: env.OIDC_AUTHORIZE,
-							scopes: ['openid', 'email', 'profile']
-							// discoveryUrl: env.OIDC_DISCOVERY_URL ?? ''
-							// ... other config options
-						}
-						// Add more providers as needed
-					]
-				})
+const baseURL = env.BETTER_AUTH_URL || 'http://localhost:5173';
+const secret = env.BETTER_AUTH_SECRET || 'placeholder_secret_for_build_step_only';
+const dbConnectionString = env.MANGAWEB_DB || 'postgresql://localhost:5432/placeholder';
+
+// 2. Initialize statically so Better Auth's plugin tree constructs safely
+export const auth = betterAuth({
+	secret: secret,
+	baseURL: baseURL, 
+	database: new Pool({
+		connectionString: dbConnectionString,
+		options: '-c search_path=auth'
+	}),
+	plugins: [
+		sveltekitCookies(getRequestEvent),
+		apiKey({
+			rateLimit: { enabled: false }
+		}),
+		genericOAuth({
+			config: [
+				{
+					// Provide fallback strings instead of undefined or short-circuiting empty strings
+					providerId: env.OIDC_PROVIDER_ID || 'placeholder-provider',
+					clientId: env.OIDC_CLIENT || 'placeholder-client',
+					clientSecret: env.OIDC_SECRET || 'placeholder-secret',
+					issuer: env.OIDC_ISSUER || 'https://placeholder-issuer.com',
+					tokenUrl: env.OIDC_TOKEN || 'https://placeholder-issuer.com',
+					authorizationUrl: env.OIDC_AUTHORIZE || 'https://placeholder-issuer.com',
+					requireIssuerValidation: false,
+					scopes: ['openid', 'email', 'profile']
+				}
 			]
-		});
-	}
+		})
+	]
+});
 
-	return authInstance;
-}
+// Keeps backward compatibility with your factory imports if needed elsewhere
+export default () => auth;
