@@ -6,6 +6,9 @@ on:
 
   push:
     branches: ['master']
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontend.docker-image.yml"
 
 jobs:
   push_to_registry:
