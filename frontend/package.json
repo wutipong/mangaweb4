@@ -58,7 +58,7 @@
 	"dependencies": {
 		"@better-auth/api-key": "^1.6.26",
 		"@better-auth/kysely-adapter": "^1.6.26",
-		"@grpc/grpc-js": "^1.14.3",
+		"@grpc/grpc-js": "^1.14.4",
 		"@mdi/js": "^7.4.47",
 		"@protobuf-ts/grpc-transport": "^2.11.1",
 		"@protobuf-ts/runtime": "^2.11.1",
