@@ -37,13 +37,13 @@ OIDC_LOGOUT=<Logout URL>
 
 ## Development
 
-**MangaWeb 4** was developed with [Node.JS](https://nodejs.org/en) runtime. Currently other runtimes such as [Bun](https://bun.com/) are not supported.
+**MangaWeb 4** uses the [Bun](https://bun.com/) runtime.
 
 ### Running MangaWeb 4
 
-Before you can run **MangaWeb 4**, you have to install its dependency first. Use `npm install` command to install the dependencies.
+Before you can run **MangaWeb 4**, you have to install its dependency first. Use `bun install` command to install the dependencies.
 
-After that, use the command `npm run dev -- --open` to start the server in development environment.
+After that, use the command `bun run dev -- --open` to start the server in development environment.
 
 For more information, please consult [SvelteKit](https://svelte.dev/docs/kit/introduction) documentation.
 
@@ -58,7 +58,7 @@ $ git submodule init
 $ git submodule update
 ```
 
-And lastly, run `npm run generate-grpc` to generate gRPC code.
+And lastly, run `bun run generate-grpc` to generate gRPC code.
 
 The grpc's schema files are kept separately in [mangaweb4-grpc-schema](https://github.com/mangaweb4/mangaweb4-grpc-schema) repository. If you need to update the `*.proto` file, make sure to commit the change back to the repository and then update the code on the backend side, otherwise the code between the two components might be out-of-sync and can cause communication issue.
 
@@ -66,6 +66,6 @@ The grpc's schema files are kept separately in [mangaweb4-grpc-schema](https://g
 
 **MangaWeb 4** includes progressive web application (PWA)'s web application manifest resources so it could run as a standalone application despite being a web application.
 
-In order to update the PWA's icon, make changes to the file `static/favicon.svg` and then run the script `npm run generate-pwa-assets` to update other icons.
+In order to update the PWA's icon, make changes to the file `static/favicon.svg` and `static/pwa/favicon.svg`. The other icons are regenerated automatically during `bun run build`.
 
 **MangaWeb 4** uses [Vite PWA Plugin](https://vite-pwa-org.netlify.app/) to setup PWA.
