@@ -116,7 +116,7 @@
 						onclick={() => onTagFavorite()}
 					>
 						{#if favoriteTag}
-							<Icon path={mdiTagHeart} class="fill-purple-400 stroke-purple-800" />
+							<Icon path={mdiTagHeart}/>
 							Favorite
 						{:else}
 							<Icon path={mdiTagHeartOutline}  />
