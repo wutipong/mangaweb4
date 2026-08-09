@@ -6,7 +6,7 @@
 	import Content from '$lib/components/Content.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiAlertCircle } from '@mdi/js';
 
 	let showMenu = $state(false);
@@ -17,7 +17,7 @@
 		<NavBar bind:showMenu><div class="text-xl">Error</div></NavBar>
 		<div class="prose container mx-auto mt-4 max-w-5xl">
 			<div role="alert" class="alert alert-error">
-				<Icon data={mdiAlertCircle} />&nbsp;An error has occured.
+				<Icon path={mdiAlertCircle} />&nbsp;An error has occured.
 			</div>
 
 			<h2>Status {page.status}</h2>

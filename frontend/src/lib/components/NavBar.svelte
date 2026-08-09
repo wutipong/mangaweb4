@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import logo from '$lib/assets/logo.svg?raw';
 	import { mdiMenu, mdiArrowLeft, mdiReload } from '@mdi/js';
 	import { MediaQuery } from 'svelte/reactivity';
 	import { page } from '$app/state';
+
 	let {
 		children = undefined,
 		showMenu = $bindable(),
@@ -26,20 +27,22 @@
 		{#if !isBrowser.current}
 			<div class="flex-none place-self-center">
 				<button class="btn btn-ghost" class:btn-disabled={rootPage} onclick={() => history.back()}>
-					<Icon data={mdiArrowLeft} />
+					<Icon path={mdiArrowLeft} />
 				</button>
 			</div>
 
 			<div class="flex-none place-self-center">
 				<button class="btn btn-ghost" onclick={() => location.reload()}>
-					<Icon data={mdiReload} />
+					<Icon path={mdiReload} />
 				</button>
 			</div>
 		{/if}
 
 		<div class="flex-none place-self-center">
 			<a class="flex-none" href={page.url.origin.toString()}>
-				<Icon data={logo} width="128px" height="48px" />
+				<div class="h-12 px-1">
+				{@html logo}
+				</div>
 			</a>
 		</div>
 		<div class="flex-1 grow place-self-center overflow-hidden">
@@ -48,7 +51,7 @@
 		<div class="flex-none place-self-center">
 			{#if hasmenu}
 				<button class="btn btn-square btn-ghost" onclick={() => (showMenu = true)}>
-					<Icon data={mdiMenu} class="fill-slate-400 stroke-slate-800" />
+					<Icon path={mdiMenu} />
 				</button>
 			{/if}
 		</div>

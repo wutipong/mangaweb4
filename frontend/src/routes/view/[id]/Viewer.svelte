@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import Hammer from 'hammerjs';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiChevronLeft, mdiChevronRight } from '@mdi/js';
 
 	import Page from './Page.svelte';
@@ -108,7 +108,7 @@
 	onclick={() => previous()}
 	{disabled}
 >
-	<Icon data={mdiChevronLeft} class="ms-10 me-auto"></Icon>
+	<Icon path={mdiChevronLeft}></Icon>
 </button>
 
 <button
@@ -117,7 +117,7 @@
 	onclick={() => next()}
 	{disabled}
 >
-	<Icon data={mdiChevronRight} class="ms-auto me-10"></Icon>
+	<Icon path={mdiChevronRight}></Icon>
 </button>
 
 <div

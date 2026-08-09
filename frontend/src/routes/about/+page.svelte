@@ -4,7 +4,7 @@
 	import Toast from '$lib/components/Toast.svelte';
 	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiPlayCircle, mdiGithub } from '@mdi/js';
 
 	import NavBar from '$lib/components/NavBar.svelte';
@@ -81,7 +81,7 @@
 			<h1>MangaWeb 4</h1>
 
 			<a class="btn" href="https://github.com/mangaweb4">
-				<Icon data={mdiGithub} />&nbsp;Github
+				<Icon path={mdiGithub} />&nbsp;Github
 			</a>
 
 			<div class="mt-4">
@@ -125,7 +125,7 @@
 							<td class="align-middle"> Update library </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmUpdateLibrary()}>
-									<Icon data={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
 								</button>
 							</td>
 						</tr>
@@ -133,7 +133,7 @@
 							<td class="align-middle"> Repopulate tags </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmPopulateTags()}>
-									<Icon data={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
 								</button>
 							</td>
 						</tr>
@@ -141,7 +141,7 @@
 							<td class="align-middle"> Purge caches </td>
 							<td>
 								<button class="btn btn-warning" onclick={() => confirmPurgeCache()}>
-									<Icon data={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
+									<Icon path={mdiPlayCircle} class="fill-red-400 stroke-red-800" />&nbsp;Run
 								</button>
 							</td>
 						</tr>

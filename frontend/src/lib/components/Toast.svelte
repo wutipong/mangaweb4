@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiInformationOutline, mdiCheck, mdiAlertCircleOutline, mdiAlertCircle } from '@mdi/js';
 
 	let messages: {
@@ -24,13 +24,13 @@
 			class:alert-error={m.type == 'error'}
 		>
 			{#if m.type == 'info'}
-				<Icon data={mdiInformationOutline} />
+				<Icon path={mdiInformationOutline} />
 			{:else if m.type == 'success'}
-				<Icon data={mdiCheck} />
+				<Icon path={mdiCheck} />
 			{:else if m.type == 'warning'}
-				<Icon data={mdiAlertCircleOutline} />
+				<Icon path={mdiAlertCircleOutline} />
 			{:else if m.type == 'error'}
-				<Icon data={mdiAlertCircle} />
+				<Icon path={mdiAlertCircle} />
 			{/if}
 			<span>{m.body}</span>
 		</div>

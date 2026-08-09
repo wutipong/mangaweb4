@@ -15,7 +15,7 @@
 	import BottomNav from '$lib/components/BottomNav.svelte';
 	import ItemCardGrid from '$lib/components/ItemCardGrid.svelte';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiTagHeart, mdiTagHeartOutline, mdiFilterMenu } from '@mdi/js';
 	import { ITEM_PER_PAGE } from '$lib/constants';
 	import FilterPanel from './FilterPanel.svelte';
@@ -116,10 +116,10 @@
 						onclick={() => onTagFavorite()}
 					>
 						{#if favoriteTag}
-							<Icon data={mdiTagHeart} class="fill-purple-400 stroke-purple-800" />
+							<Icon path={mdiTagHeart} class="fill-purple-400 stroke-purple-800" />
 							Favorite
 						{:else}
-							<Icon data={mdiTagHeartOutline} class="fill-slate-400 stroke-slate-800" />
+							<Icon path={mdiTagHeartOutline}  />
 							Favorite
 						{/if}
 					</button>
@@ -127,7 +127,7 @@
 				<div class="flex md:hidden">
 					<div class="flex-1"></div>
 					<button class="btn btn-ghost" onclick={() => filterDialog.showModal()}>
-						<Icon data={mdiFilterMenu} class="fill-slate-400 stroke-slate-800" /> Option
+						<Icon path={mdiFilterMenu}  /> Option
 					</button>
 				</div>
 

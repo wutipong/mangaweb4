@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import {
 		mdiPageNext,
 		mdiPageFirst,
@@ -27,7 +27,7 @@
 		<div class="flex flex-col py-4">
 			<div class="join mt-3 flex">
 				<button class="join-item btn flex-none" onclick={() => goto(createLink(0))}>
-					<Icon data={mdiPageFirst} />
+					<Icon path={mdiPageFirst} />
 					<div class="text hidden sm:block">First</div></button
 				>
 				<button
@@ -35,7 +35,7 @@
 					class:btn-disabled={currentPage - 1 < 0}
 					onclick={() => goto(createLink(currentPage - 1))}
 				>
-					<Icon data={mdiChevronLeft} />
+					<Icon path={mdiChevronLeft} />
 					<div class="text hidden sm:block">Previous</div>
 				</button>
 				<input type="number" readonly class="join input flex-1" value={currentPage} />
@@ -44,11 +44,11 @@
 					class:btn-disabled={currentPage + 1 > totalPage - 1}
 					onclick={() => goto(createLink(currentPage + 1))}
 				>
-					<Icon data={mdiChevronRight} />
+					<Icon path={mdiChevronRight} />
 					<div class="text hidden sm:block">Next</div>
 				</button>
 				<button class="join-item btn" onclick={() => goto(createLink(totalPage - 1))}>
-					<Icon data={mdiPageLast} />
+					<Icon path={mdiPageLast} />
 					<div class="text hidden sm:block">Last</div>
 				</button>
 			</div>
@@ -70,18 +70,18 @@
 					class:btn-disabled={customPage - 1 < 0}
 					onclick={() => (customPage = Math.max(customPage - 1, 0))}
 				>
-					<Icon data={mdiMinus} />
+					<Icon path={mdiMinus} />
 				</button>
 				<button
 					class="join-item btn flex-none"
 					class:btn-disabled={customPage + 1 > totalPage - 1}
 					onclick={() => (customPage = Math.min(customPage + 1, totalPage - 1))}
 				>
-					<Icon data={mdiPlus} />
+					<Icon path={mdiPlus} />
 				</button>
 
 				<button class="join-item btn flex-none" onclick={() => goto(createLink(customPage))}>
-					<Icon data={mdiPageNext} class="fill-slate-400 stroke-slate-800"></Icon>
+					<Icon path={mdiPageNext} ></Icon>
 					<div class="text hidden sm:block">Go</div>
 				</button>
 			</div>

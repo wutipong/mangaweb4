@@ -9,7 +9,7 @@
 
 	import md5 from 'md5';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import {mdiLogout} from '@mdi/js';
 	import { authClient } from '$lib/auth';
 
@@ -45,7 +45,7 @@
 			<p><b>Email</b> {email}</p>
 
 			<button class="btn btn-primary btn-wide mt-4" onclick={async () => await logout()}>
-				<Icon data={mdiLogout} />&nbsp;Logout
+				<Icon path={mdiLogout} />&nbsp;Logout
 			</button>
 
 			<div class="mt-4 mb-4">

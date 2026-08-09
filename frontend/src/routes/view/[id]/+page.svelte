@@ -17,7 +17,7 @@
 	import { $enum as enumUtil } from 'ts-enum-util';
 	import { ImageQuality } from '$lib/grpc/types';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import {
 		mdiDownload,
 		mdiDownloadBox,
@@ -185,7 +185,7 @@
 				<div class=" whitespace-nowrap">{path.basename(data.response.name)}</div>
 			</div>
 		</NavBar>
-		<div class="fixed start-0 end-0 top-0 bottom-0">
+		<div class="fixed inset-s-0 inset-e-0 top-0 bottom-0">
 			<Viewer
 				imageURLs={createImageUrls(data.request.id, data.response.pageCount)}
 				{onIndexChange}
@@ -223,7 +223,7 @@
 						aboutDialog.showModal();
 					}}
 				>
-					<Icon data={mdiInformationOutline} class="fill-slate-400 stroke-slate-800" /> Information
+					<Icon path={mdiInformationOutline}  /> Information
 				</button>
 			</li>
 			<li>
@@ -234,9 +234,9 @@
 					onclick={() => toggleFavorite()}
 				>
 					{#if favorite}
-						<Icon data={mdiHeart} class="fill-pink-400 stroke-pink-800" /> Favorite
+						<Icon path={mdiHeart} color="oklch(71.8% 0.202 349.761)" /> Favorite
 					{:else}
-						<Icon data={mdiHeartOutline} /> Favorite
+						<Icon path={mdiHeartOutline} /> Favorite
 					{/if}
 				</button>
 			</li>
@@ -245,7 +245,7 @@
 			{#each tags as t (t.id)}
 				<li>
 					<button onclick={() => goto(browseTagURL(page.url, t.id))}>
-						<Icon data={mdiTag} class="fill-slate-400 stroke-slate-800" />
+						<Icon path={mdiTag}  />
 						{t.name}
 					</button>
 				</li>
@@ -254,25 +254,25 @@
 			<li class="menu-title">Tools</li>
 			<li>
 				<button onclick={() => downloadPage()}>
-					<Icon data={mdiDownloadBox} class="fill-slate-400 stroke-slate-800" /> Download current page
+					<Icon path={mdiDownloadBox}  /> Download current page
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => downloadManga()}>
-					<Icon data={mdiDownload} class="fill-slate-400 stroke-slate-800" /> Download
+					<Icon path={mdiDownload}  /> Download
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => changeThumbnail()}>
-					<Icon data={mdiImage} class="fill-slate-400 stroke-slate-800" /> Change thumbnail
+					<Icon path={mdiImage}  /> Change thumbnail
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => fixMetaData()}>
-					<Icon data={mdiTools} class="fill-slate-400 stroke-slate-800" /> Fix item metadata
+					<Icon path={mdiTools}  /> Fix item metadata
 				</button>
 			</li>
 
@@ -289,7 +289,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={mdiMotionPause} class="fill-slate-400 stroke-slate-800" /> Reduce Motion
+					<Icon path={mdiMotionPause}  /> Reduce Motion
 				</button>
 			</li>
 			<li class:menu-active={options.grayscale}>
@@ -300,7 +300,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={mdiSquareOpacity} class="fill-slate-400 stroke-slate-800" /> Grayscale
+					<Icon path={mdiSquareOpacity}  /> Grayscale
 				</button>
 			</li>
 
@@ -313,7 +313,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={mdiSquareRounded} class="fill-slate-400 stroke-slate-800" /> Original
+					<Icon path={mdiSquareRounded}  /> Original
 				</button>
 			</li>
 			<li class:menu-active={quality === ImageQuality.HIGH}>
@@ -324,7 +324,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={mdiQualityHigh} class="fill-slate-400 stroke-slate-800" /> High
+					<Icon path={mdiQualityHigh}  /> High
 				</button>
 			</li>
 
@@ -336,7 +336,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={mdiQualityLow} class="fill-slate-400 stroke-slate-800" /> Low
+					<Icon path={mdiQualityLow}  /> Low
 				</button>
 			</li>
 		</ul>

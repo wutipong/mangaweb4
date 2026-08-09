@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiPageFirst, mdiPageLast, mdiDotsVertical } from '@mdi/js';
 	import { goto } from '$app/navigation';
 	import PaginationDialog from './PaginationDialog.svelte';
@@ -33,7 +33,7 @@
 <div class="fixed inset-x-1/2 bottom-10 hidden md:flex">
 	<div class="join -translate-x-1/2 shadow-xl">
 		<button class="join-item btn" onclick={() => goto(createLink(0))}>
-			<Icon data={mdiPageFirst} />
+			<Icon path={mdiPageFirst} />
 		</button>
 
 		{#each pageNumbers as i (i)}
@@ -48,11 +48,11 @@
 		{/each}
 
 		<button class="join-item btn" onclick={() => customInput.showModal()}>
-			<Icon data={mdiDotsVertical} />
+			<Icon path={mdiDotsVertical} />
 		</button>
 
 		<button class="join-item btn" onclick={() => goto(createLink(totalPage - 1).toString())}>
-			<Icon data={mdiPageLast} />
+			<Icon path={mdiPageLast} />
 		</button>
 	</div>
 </div>

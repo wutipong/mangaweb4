@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiArrowLeft, mdiReload } from '@mdi/js';
 	import { MediaQuery } from 'svelte/reactivity';
 
@@ -21,10 +21,10 @@
 		<div>
 			{#if !isBrowser.current}
 				<button class="btn btn-sm btn-ghost" onclick={() => history.back()}>
-					<Icon data={mdiArrowLeft} />
+					<Icon path={mdiArrowLeft} />
 				</button>
 				<button class="btn btn-sm btn-ghost" onclick={() => location.reload()}>
-					<Icon data={mdiReload} />
+					<Icon path={mdiReload} />
 				</button>
 			{/if}
 			<h3 class="inline text-lg font-bold">Now Loading</h3>

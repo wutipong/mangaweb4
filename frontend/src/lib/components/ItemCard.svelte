@@ -11,7 +11,7 @@
 		mdiMinusBox
 	} from '@mdi/js';
 
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { goto } from '$app/navigation';
 
 	interface Props {
@@ -134,39 +134,39 @@
 			<div class="absolute top-4 -right-2 grid grid-cols-1 place-items-end gap-2">
 				{#if favorite}
 					<div class="badge border-pink-800 bg-pink-200 p-2 text-pink-800">
-						<Icon data={mdiHeart} class="fill-pink-400" /> Favorite
+						<Icon path={mdiHeart} class="fill-pink-400" /> Favorite
 					</div>
 				{/if}
 
 				{#if favoriteTag}
 					<div class="badge border-purple-800 bg-purple-200 p-2 text-purple-800">
-						<Icon data={mdiTagHeart} class="fill-purple-400" /> Favorite Tag
+						<Icon path={mdiTagHeart} class="fill-purple-400" /> Favorite Tag
 					</div>
 				{/if}
 
 				{#if !isRead}
 					<div class="badge border-yellow-800 bg-yellow-200 p-2 text-yellow-800">
-						<Icon data={mdiAlertDecagram} class="fill-yellow-400" /> New
+						<Icon path={mdiAlertDecagram} class="fill-yellow-400" /> New
 					</div>
 				{:else if pageCount != 0}
 					<div class="badge border-emerald-800 bg-emerald-200 p-2 text-emerald-800">
 						{#if progressPercent < READ_THRESHOLD}
-							<Icon data={mdiBookOpenVariant} class="fill-emerald-400" />
+							<Icon path={mdiBookOpenVariant} class="fill-emerald-400" />
 							{Math.round(progressPercent)}%
 						{:else}
-							<Icon data={mdiCheck} class="fill-emerald-400" /> Read
+							<Icon path={mdiCheck} class="fill-emerald-400" /> Read
 						{/if}
 					</div>
 				{/if}
 				{#if pageCount}
 					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon data={mdiBookOpenPageVariant} class="fill-blue-400" />
+						<Icon path={mdiBookOpenPageVariant} class="fill-blue-400" />
 						{pageCount}p
 					</div>
 				{/if}
 				{#if itemCount}
 					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon data={mdiBookshelf} class="fill-blue-400" />
+						<Icon path={mdiBookshelf} class="fill-blue-400" />
 						{itemCount}
 					</div>
 				{/if}

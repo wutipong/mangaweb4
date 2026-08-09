@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiChevronLeft, mdiChevronRight, mdiPageFirst, mdiPageLast } from '@mdi/js';
 
 	let {
@@ -28,7 +28,7 @@
 					onMovedToPage(0);
 				}}
 			>
-				<Icon data={mdiPageFirst} />
+				<Icon path={mdiPageFirst} />
 			</button>
 			<button
 				class="btn flex-none"
@@ -36,7 +36,7 @@
 					onPrevious();
 				}}
 			>
-				<Icon data={mdiChevronLeft} />
+				<Icon path={mdiChevronLeft} />
 			</button>
 			<input
 				type="range"
@@ -52,7 +52,7 @@
 					onNext();
 				}}
 			>
-				<Icon data={mdiChevronRight} />
+				<Icon path={mdiChevronRight} />
 			</button>
 			<button
 				class="btn flex-none"
@@ -60,7 +60,7 @@
 					onMovedToPage(length - 1);
 				}}
 			>
-				<Icon data={mdiPageLast} />
+				<Icon path={mdiPageLast} />
 			</button>
 		</div>
 		<p class="mt-2">

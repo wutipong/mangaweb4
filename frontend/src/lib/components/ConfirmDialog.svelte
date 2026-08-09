@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiCheck, mdiCancel } from '@mdi/js';
 
 	let dialog: HTMLDialogElement;
@@ -31,10 +31,10 @@
 						dialog.close();
 					}}
 				>
-					<Icon data={mdiCheck} />&nbsp;OK
+					<Icon path={mdiCheck} />&nbsp;OK
 				</button>
 				<button class="btn" onclick={() => dialog.close()}>
-					<Icon data={mdiCancel} />&nbsp;Cancel
+					<Icon path={mdiCancel} />&nbsp;Cancel
 				</button>
 			</form>
 		</div>

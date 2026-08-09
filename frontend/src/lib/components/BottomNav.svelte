@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 
@@ -37,7 +37,7 @@
 <div class="fixed inset-x-1/2 bottom-10 md:hidden">
 	<div class="join bg-base-100 -translate-x-1/2 shadow-xl">
 		<button class="join-item btn" onclick={() => customInput.showModal()}>
-			<Icon data={pageIcon} class="fill-slate-400 stroke-slate-800" /> Page
+			<Icon path={pageIcon}  /> Page
 		</button>
 
 		<button
@@ -45,7 +45,7 @@
 			class:btn-disabled={currentPage - 1 < 0}
 			onclick={() => goto(createLink(currentPage - 1))}
 		>
-			<Icon data={previousPageIcon} />
+			<Icon path={previousPageIcon} />
 		</button>
 
 		<button class="join-item btn btn-active btn-primary">{currentPage}</button>
@@ -55,11 +55,11 @@
 			class:btn-disabled={currentPage + 1 > totalPage - 1}
 			onclick={() => goto(createLink(currentPage + 1))}
 		>
-			<Icon data={nextPageIcon} />
+			<Icon path={nextPageIcon} />
 		</button>
 
 		<button class="join-item btn" onclick={moveToTop}>
-			<Icon data={moveUpIcon} class="fill-slate-400 stroke-slate-800" />
+			<Icon path={moveUpIcon}  />
 			Top
 		</button>
 	</div>

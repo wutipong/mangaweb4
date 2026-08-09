@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiMagnify, mdiCloseCircle } from '@mdi/js';
 	import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 	import { browseTagURL } from '$lib/routes';
@@ -96,13 +96,13 @@
 				goto(browseTagURL(page.url.origin, data.request.id));
 			}}
 		>
-			<Icon data={mdiCloseCircle} class="fill-slate-400 stroke-slate-800" />
+			<Icon path={mdiCloseCircle}  />
 		</button>
 		<button
 			class="btn join-item flex-none"
 			onclick={() => goto(browseTagURL(page.url.origin, data.request.id, { search: search }))}
 		>
-			<Icon data={mdiMagnify} class="fill-slate-400 stroke-slate-800" />
+			<Icon path={mdiMagnify}  />
 		</button>
 	</div>
 </fieldset>

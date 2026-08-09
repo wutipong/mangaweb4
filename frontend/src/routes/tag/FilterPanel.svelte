@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { SortField, SortOrder, Filter } from '$lib/grpc/types';
 	import { tagURL } from '$lib/routes';
-	import { Icon } from 'svelte-icon';
+	import Icon from 'mdi-svelte';
 	import { mdiMagnify, mdiCloseCircle } from '@mdi/js';
 
 	let {
@@ -77,13 +77,13 @@
 				goto(tagURL(page.url.origin));
 			}}
 		>
-			<Icon data={mdiCloseCircle} class="fill-slate-400 stroke-slate-800" />
+			<Icon path={mdiCloseCircle}  />
 		</button>
 		<button
 			class="btn join-item flex-none"
 			onclick={() => goto(tagURL(page.url.origin, { search: search }))}
 		>
-			<Icon data={mdiMagnify} class="fill-slate-400 stroke-slate-800" />
+			<Icon path={mdiMagnify}  />
 		</button>
 	</div>
 </fieldset>
