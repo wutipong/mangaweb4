@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { Icon } from 'svelte-icon';
-	import menuIcon from '@mdi/svg/svg/menu.svg?raw';
 	import logo from '$lib/assets/logo.svg?raw';
-	import backIcon from '@mdi/svg/svg/arrow-left.svg?raw';
-	import reloadIcon from '@mdi/svg/svg/reload.svg?raw';
-
+	import { mdiMenu, mdiArrowLeft, mdiReload } from '@mdi/js';
 	import { MediaQuery } from 'svelte/reactivity';
 	import { page } from '$app/state';
 	let {
@@ -29,13 +26,13 @@
 		{#if !isBrowser.current}
 			<div class="flex-none place-self-center">
 				<button class="btn btn-ghost" class:btn-disabled={rootPage} onclick={() => history.back()}>
-					<Icon data={backIcon} />
+					<Icon data={mdiArrowLeft} />
 				</button>
 			</div>
 
 			<div class="flex-none place-self-center">
 				<button class="btn btn-ghost" onclick={() => location.reload()}>
-					<Icon data={reloadIcon} />
+					<Icon data={mdiReload} />
 				</button>
 			</div>
 		{/if}
@@ -51,7 +48,7 @@
 		<div class="flex-none place-self-center">
 			{#if hasmenu}
 				<button class="btn btn-square btn-ghost" onclick={() => (showMenu = true)}>
-					<Icon data={menuIcon} class="fill-slate-400 stroke-slate-800" />
+					<Icon data={mdiMenu} class="fill-slate-400 stroke-slate-800" />
 				</button>
 			{/if}
 		</div>

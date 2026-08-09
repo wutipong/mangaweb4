@@ -16,9 +16,7 @@
 	import ItemCardGrid from '$lib/components/ItemCardGrid.svelte';
 
 	import { Icon } from 'svelte-icon';
-	import isTagFavoriteIcon from '@mdi/svg/svg/tag-heart.svg?raw';
-	import isTagNotFavoriteIcon from '@mdi/svg/svg/tag-heart-outline.svg?raw';
-	import filterIcon from '@mdi/svg/svg/filter-menu.svg?raw';
+	import { mdiTagHeart, mdiTagHeartOutline, mdiFilterMenu } from '@mdi/js';
 	import { ITEM_PER_PAGE } from '$lib/constants';
 	import FilterPanel from './FilterPanel.svelte';
 
@@ -118,10 +116,10 @@
 						onclick={() => onTagFavorite()}
 					>
 						{#if favoriteTag}
-							<Icon data={isTagFavoriteIcon} class="fill-purple-400 stroke-purple-800" />
+							<Icon data={mdiTagHeart} class="fill-purple-400 stroke-purple-800" />
 							Favorite
 						{:else}
-							<Icon data={isTagNotFavoriteIcon} class="fill-slate-400 stroke-slate-800" />
+							<Icon data={mdiTagHeartOutline} class="fill-slate-400 stroke-slate-800" />
 							Favorite
 						{/if}
 					</button>
@@ -129,7 +127,7 @@
 				<div class="flex md:hidden">
 					<div class="flex-1"></div>
 					<button class="btn btn-ghost" onclick={() => filterDialog.showModal()}>
-						<Icon data={filterIcon} class="fill-slate-400 stroke-slate-800" /> Option
+						<Icon data={mdiFilterMenu} class="fill-slate-400 stroke-slate-800" /> Option
 					</button>
 				</div>
 

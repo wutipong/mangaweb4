@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Icon } from 'svelte-icon';
-	import backIcon from '@mdi/svg/svg/arrow-left.svg?raw';
-	import reloadIcon from '@mdi/svg/svg/reload.svg?raw';
+	import { mdiArrowLeft, mdiReload } from '@mdi/js';
 	import { MediaQuery } from 'svelte/reactivity';
 
 	let dialog: HTMLDialogElement;
@@ -22,10 +21,10 @@
 		<div>
 			{#if !isBrowser.current}
 				<button class="btn btn-sm btn-ghost" onclick={() => history.back()}>
-					<Icon data={backIcon} />
+					<Icon data={mdiArrowLeft} />
 				</button>
 				<button class="btn btn-sm btn-ghost" onclick={() => location.reload()}>
-					<Icon data={reloadIcon} />
+					<Icon data={mdiReload} />
 				</button>
 			{/if}
 			<h3 class="inline text-lg font-bold">Now Loading</h3>

@@ -1,13 +1,15 @@
 <script lang="ts">
-	import favoriteIcon from '@mdi/svg/svg/heart.svg?raw';
-	import favoriteTagIcon from '@mdi/svg/svg/tag-heart.svg?raw';
-	import newIcon from '@mdi/svg/svg/alert-decagram.svg?raw';
-	import readingIcon from '@mdi/svg/svg/book-open-variant.svg?raw';
-	import readIcon from '@mdi/svg/svg/check.svg?raw';
-	import pageCountIcon from '@mdi/svg/svg/book-open-page-variant.svg?raw';
-	import itemCountIcon from '@mdi/svg/svg/bookshelf.svg?raw';
-	import errorThumbnail from '@mdi/svg/svg/alert-box.svg?raw';
-	import dummyThumbnail from '@mdi/svg/svg/minus-box.svg?raw';
+	import {
+		mdiHeart,
+		mdiTagHeart,
+		mdiAlertDecagram,
+		mdiBookOpenVariant,
+		mdiCheck,
+		mdiBookOpenPageVariant,
+		mdiBookshelf,
+		mdiAlertBox,
+		mdiMinusBox
+	} from '@mdi/js';
 
 	import { Icon } from 'svelte-icon';
 	import { goto } from '$app/navigation';
@@ -77,7 +79,7 @@
 	{#if dummy}
 		<div class="mt-0 mb-0 h-full">
 			<div aria-label={name} class="aspect-ratio-[1/1.414]">
-				<Icon class="mx-auto mt-18" data={dummyThumbnail} color="gray" width="180" height="180" />
+				<Icon class="mx-auto mt-18" data={mdiMinusBox} color="gray" width="180" height="180" />
 			</div>
 		</div>
 		<div class="card-body">
@@ -107,7 +109,7 @@
 					{#if imageLoadErr}
 						<Icon
 							class="absolute inset-1/2 place-self-center fill-yellow-400 stroke-yellow-800"
-							data={errorThumbnail}
+							data={mdiAlertBox}
 							width="180"
 							height="180"
 						/>
@@ -132,38 +134,39 @@
 			<div class="absolute top-4 -right-2 grid grid-cols-1 place-items-end gap-2">
 				{#if favorite}
 					<div class="badge border-pink-800 bg-pink-200 p-2 text-pink-800">
-						<Icon data={favoriteIcon} class="fill-pink-400" /> Favorite
+						<Icon data={mdiHeart} class="fill-pink-400" /> Favorite
 					</div>
 				{/if}
 
 				{#if favoriteTag}
 					<div class="badge border-purple-800 bg-purple-200 p-2 text-purple-800">
-						<Icon data={favoriteTagIcon} class="fill-purple-400" /> Favorite Tag
+						<Icon data={mdiTagHeart} class="fill-purple-400" /> Favorite Tag
 					</div>
 				{/if}
 
 				{#if !isRead}
 					<div class="badge border-yellow-800 bg-yellow-200 p-2 text-yellow-800">
-						<Icon data={newIcon} class="fill-yellow-400" /> New
+						<Icon data={mdiAlertDecagram} class="fill-yellow-400" /> New
 					</div>
 				{:else if pageCount != 0}
 					<div class="badge border-emerald-800 bg-emerald-200 p-2 text-emerald-800">
 						{#if progressPercent < READ_THRESHOLD}
-							<Icon data={readingIcon} class="fill-emerald-400" /> {Math.round(progressPercent)}%
+							<Icon data={mdiBookOpenVariant} class="fill-emerald-400" />
+							{Math.round(progressPercent)}%
 						{:else}
-							<Icon data={readIcon} class="fill-emerald-400" /> Read
+							<Icon data={mdiCheck} class="fill-emerald-400" /> Read
 						{/if}
 					</div>
 				{/if}
 				{#if pageCount}
 					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon data={pageCountIcon} class="fill-blue-400" />
+						<Icon data={mdiBookOpenPageVariant} class="fill-blue-400" />
 						{pageCount}p
 					</div>
 				{/if}
 				{#if itemCount}
 					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon data={itemCountIcon} class="fill-blue-400" />
+						<Icon data={mdiBookshelf} class="fill-blue-400" />
 						{itemCount}
 					</div>
 				{/if}

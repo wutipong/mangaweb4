@@ -2,8 +2,7 @@
 	import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 
 	import { Icon } from 'svelte-icon';
-	import searchIcon from '@mdi/svg/svg/magnify.svg?raw';
-	import clearIcon from '@mdi/svg/svg/close-circle.svg?raw';
+	import { mdiMagnify, mdiCloseCircle } from '@mdi/js';
 	import { browseURL } from '$lib/routes';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
@@ -98,13 +97,13 @@
 				goto(browseURL(page.url.origin));
 			}}
 		>
-			<Icon data={clearIcon} class="fill-slate-400 stroke-slate-800" />
+			<Icon data={mdiCloseCircle} class="fill-slate-400 stroke-slate-800" />
 		</button>
 		<button
 			class="btn join-item flex-none"
 			onclick={() => goto(browseURL(page.url.origin, { search: search }))}
 		>
-			<Icon data={searchIcon} class="fill-slate-400 stroke-slate-800" />
+			<Icon data={mdiMagnify} class="fill-slate-400 stroke-slate-800" />
 		</button>
 	</div>
 </fieldset>

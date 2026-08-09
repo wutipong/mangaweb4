@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Icon } from 'svelte-icon';
-	import prevIcon from '@mdi/svg/svg/chevron-left.svg?raw';
-	import nextIcon from '@mdi/svg/svg/chevron-right.svg?raw';
-	import firstIcon from '@mdi/svg/svg/page-first.svg?raw';
-	import lastIcon from '@mdi/svg/svg/page-last.svg?raw';
+	import { mdiChevronLeft, mdiChevronRight, mdiPageFirst, mdiPageLast } from '@mdi/js';
 
 	let {
 		length,
@@ -31,7 +28,7 @@
 					onMovedToPage(0);
 				}}
 			>
-				<Icon data={firstIcon} />
+				<Icon data={mdiPageFirst} />
 			</button>
 			<button
 				class="btn flex-none"
@@ -39,7 +36,7 @@
 					onPrevious();
 				}}
 			>
-				<Icon data={prevIcon} />
+				<Icon data={mdiChevronLeft} />
 			</button>
 			<input
 				type="range"
@@ -55,7 +52,7 @@
 					onNext();
 				}}
 			>
-				<Icon data={nextIcon} />
+				<Icon data={mdiChevronRight} />
 			</button>
 			<button
 				class="btn flex-none"
@@ -63,7 +60,7 @@
 					onMovedToPage(length - 1);
 				}}
 			>
-				<Icon data={lastIcon} />
+				<Icon data={mdiPageLast} />
 			</button>
 		</div>
 		<p class="mt-2">

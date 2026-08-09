@@ -18,20 +18,22 @@
 	import { ImageQuality } from '$lib/grpc/types';
 
 	import { Icon } from 'svelte-icon';
-	import downloadIcon from '@mdi/svg/svg/download.svg?raw';
-	import downloadPageIcon from '@mdi/svg/svg/download-box.svg?raw';
-	import fixIcon from '@mdi/svg/svg/tools.svg?raw';
-	import infoIcon from '@mdi/svg/svg/information-outline.svg?raw';
-	import tagIcon from '@mdi/svg/svg/tag.svg?raw';
-	import thumbnailIcon from '@mdi/svg/svg/image.svg?raw';
+	import {
+		mdiDownload,
+		mdiDownloadBox,
+		mdiTools,
+		mdiInformationOutline,
+		mdiTag,
+		mdiImage,
+		mdiHeart,
+		mdiHeartOutline,
+		mdiMotionPause,
+		mdiSquareOpacity,
+		mdiQualityHigh,
+		mdiQualityLow,
+		mdiSquareRounded
+	} from '@mdi/js';
 	import logger from '$lib/logger';
-	import isFavoriteIcon from '@mdi/svg/svg/heart.svg?raw';
-	import isNotFavoriteIcon from '@mdi/svg/svg/heart-outline.svg?raw';
-	import disableAnimationIcon from '@mdi/svg/svg/motion-pause.svg?raw';
-	import grayscaleIcon from '@mdi/svg/svg/square-opacity.svg?raw';
-	import highQualityIcon from '@mdi/svg/svg/quality-high.svg?raw';
-	import lowQualityIcon from '@mdi/svg/svg/quality-low.svg?raw';
-	import originalQualityIcon from '@mdi/svg/svg/square-rounded.svg?raw';
 
 	let current = $state(0);
 	let viewer: Viewer;
@@ -221,7 +223,7 @@
 						aboutDialog.showModal();
 					}}
 				>
-					<Icon data={infoIcon} class="fill-slate-400 stroke-slate-800" /> Information
+					<Icon data={mdiInformationOutline} class="fill-slate-400 stroke-slate-800" /> Information
 				</button>
 			</li>
 			<li>
@@ -232,9 +234,9 @@
 					onclick={() => toggleFavorite()}
 				>
 					{#if favorite}
-						<Icon data={isFavoriteIcon} class="fill-pink-400 stroke-pink-800" /> Favorite
+						<Icon data={mdiHeart} class="fill-pink-400 stroke-pink-800" /> Favorite
 					{:else}
-						<Icon data={isNotFavoriteIcon} /> Favorite
+						<Icon data={mdiHeartOutline} /> Favorite
 					{/if}
 				</button>
 			</li>
@@ -243,7 +245,7 @@
 			{#each tags as t (t.id)}
 				<li>
 					<button onclick={() => goto(browseTagURL(page.url, t.id))}>
-						<Icon data={tagIcon} class="fill-slate-400 stroke-slate-800" />
+						<Icon data={mdiTag} class="fill-slate-400 stroke-slate-800" />
 						{t.name}
 					</button>
 				</li>
@@ -252,25 +254,25 @@
 			<li class="menu-title">Tools</li>
 			<li>
 				<button onclick={() => downloadPage()}>
-					<Icon data={downloadPageIcon} class="fill-slate-400 stroke-slate-800" /> Download current page
+					<Icon data={mdiDownloadBox} class="fill-slate-400 stroke-slate-800" /> Download current page
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => downloadManga()}>
-					<Icon data={downloadIcon} class="fill-slate-400 stroke-slate-800" /> Download
+					<Icon data={mdiDownload} class="fill-slate-400 stroke-slate-800" /> Download
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => changeThumbnail()}>
-					<Icon data={thumbnailIcon} class="fill-slate-400 stroke-slate-800" /> Change thumbnail
+					<Icon data={mdiImage} class="fill-slate-400 stroke-slate-800" /> Change thumbnail
 				</button>
 			</li>
 
 			<li>
 				<button onclick={() => fixMetaData()}>
-					<Icon data={fixIcon} class="fill-slate-400 stroke-slate-800" /> Fix item metadata
+					<Icon data={mdiTools} class="fill-slate-400 stroke-slate-800" /> Fix item metadata
 				</button>
 			</li>
 
@@ -287,7 +289,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={disableAnimationIcon} class="fill-slate-400 stroke-slate-800" /> Reduce Motion
+					<Icon data={mdiMotionPause} class="fill-slate-400 stroke-slate-800" /> Reduce Motion
 				</button>
 			</li>
 			<li class:menu-active={options.grayscale}>
@@ -298,7 +300,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={grayscaleIcon} class="fill-slate-400 stroke-slate-800" /> Grayscale
+					<Icon data={mdiSquareOpacity} class="fill-slate-400 stroke-slate-800" /> Grayscale
 				</button>
 			</li>
 
@@ -311,7 +313,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={originalQualityIcon} class="fill-slate-400 stroke-slate-800" /> Original
+					<Icon data={mdiSquareRounded} class="fill-slate-400 stroke-slate-800" /> Original
 				</button>
 			</li>
 			<li class:menu-active={quality === ImageQuality.HIGH}>
@@ -322,7 +324,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={highQualityIcon} class="fill-slate-400 stroke-slate-800" /> High
+					<Icon data={mdiQualityHigh} class="fill-slate-400 stroke-slate-800" /> High
 				</button>
 			</li>
 
@@ -334,7 +336,7 @@
 						onUpdateOptions(o);
 					}}
 				>
-					<Icon data={lowQualityIcon} class="fill-slate-400 stroke-slate-800" /> Low
+					<Icon data={mdiQualityLow} class="fill-slate-400 stroke-slate-800" /> Low
 				</button>
 			</li>
 		</ul>
