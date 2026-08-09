@@ -78,8 +78,8 @@
 >
 	{#if dummy}
 		<div class="mt-0 mb-0 h-full">
-			<div aria-label={name} class="aspect-ratio-[1/1.414]">
-				<Icon class="mx-auto mt-18" data={mdiMinusBox} color="gray" width="180" height="180" />
+			<div aria-label={name} class="flex aspect-[1/1.414] items-center justify-center">
+				<Icon path={mdiMinusBox} color="gray" size="10" />
 			</div>
 		</div>
 		<div class="card-body">
@@ -105,14 +105,9 @@
 	{:else}
 		<div class="mt-0 mb-0">
 			<a href={linkUrl?.toString()} aria-label={name}>
-				<div class="relative aspect-[1/1.414]">
+				<div class="flex aspect-[1/1.414] items-center justify-center">
 					{#if imageLoadErr}
-						<Icon
-							class="absolute inset-1/2 place-self-center fill-yellow-400 stroke-yellow-800"
-							data={mdiAlertBox}
-							width="180"
-							height="180"
-						/>
+						<Icon path={mdiAlertBox} size="10" color="oklch(85.2% 0.199 91.936)" />
 					{:else if !imageLoad}
 						<div class="absolute inset-1/2 place-self-center">
 							<span class="loading loading-bars loading-xl mx-auto my-auto"></span>
@@ -133,40 +128,42 @@
 
 			<div class="absolute top-4 -right-2 grid grid-cols-1 place-items-end gap-2">
 				{#if favorite}
-					<div class="badge border-pink-800 bg-pink-200 p-2 text-pink-800">
-						<Icon path={mdiHeart} class="fill-pink-400" /> Favorite
+					<div class="badge border-pink-800 bg-pink-200 fill-pink-400 p-2 text-pink-800">
+						<Icon path={mdiHeart} /> Favorite
 					</div>
 				{/if}
 
 				{#if favoriteTag}
-					<div class="badge border-purple-800 bg-purple-200 p-2 text-purple-800">
-						<Icon path={mdiTagHeart} class="fill-purple-400" /> Favorite Tag
+					<div class="badge border-purple-800 bg-purple-200 fill-purple-400 p-2 text-purple-800">
+						<Icon path={mdiTagHeart} /> Favorite Tag
 					</div>
 				{/if}
 
 				{#if !isRead}
-					<div class="badge border-yellow-800 bg-yellow-200 p-2 text-yellow-800">
-						<Icon path={mdiAlertDecagram} class="fill-yellow-400" /> New
+					<div class="badge border-yellow-800 bg-yellow-200 fill-yellow-400 p-2 text-yellow-800">
+						<Icon path={mdiAlertDecagram} /> New
 					</div>
 				{:else if pageCount != 0}
-					<div class="badge border-emerald-800 bg-emerald-200 p-2 text-emerald-800">
+					<div
+						class="badge border-emerald-800 bg-emerald-200 fill-emerald-400 p-2 text-emerald-800"
+					>
 						{#if progressPercent < READ_THRESHOLD}
-							<Icon path={mdiBookOpenVariant} class="fill-emerald-400" />
+							<Icon path={mdiBookOpenVariant} />
 							{Math.round(progressPercent)}%
 						{:else}
-							<Icon path={mdiCheck} class="fill-emerald-400" /> Read
+							<Icon path={mdiCheck} /> Read
 						{/if}
 					</div>
 				{/if}
 				{#if pageCount}
-					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon path={mdiBookOpenPageVariant} class="fill-blue-400" />
+					<div class="badge border-blue-800 bg-blue-200 fill-blue-400 p-2 text-blue-800">
+						<Icon path={mdiBookOpenPageVariant} />
 						{pageCount}p
 					</div>
 				{/if}
 				{#if itemCount}
 					<div class="badge border-blue-800 bg-blue-200 p-2 text-blue-800">
-						<Icon path={mdiBookshelf} class="fill-blue-400" />
+						<Icon path={mdiBookshelf} />
 						{itemCount}
 					</div>
 				{/if}
