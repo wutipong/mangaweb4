@@ -4,22 +4,9 @@
 
 By default, the server will uses environment variables setup inside `.env` and the system for its configurations.
 
-However, you could specify the parameter `--environment=` to use different envionment files. A `dev.env` is supplied in the project, in order to runn the server using this setup, use the command `mangaweb4-backend --environment=dev`
-
-The `dev` environment is setup as follwing:
-
-* it displays log messages in human-readable format, instead of JSON.
-* use SQLite as the database.
-* read manga files from `./data`
-
 ## Setting up Database
 
-Mangaweb 4 supports primarily 2 different kind of databases, SQLite and Postgres. The application does accept MySQL, but it's not extensively tested and thus it's not officialy supported.
-
-By default, Postgres will be used.
-
-To change the database configuration, update two environment variables to suit your database setup. 
-
+Mangaweb 4 utilizes PostgreSQL. To change the database configuration, update the connection string environment variables to suit your database setup. 
 
 ```sh
 MANGAWEB_DB=postgres://manga:password@host:5432/database
@@ -27,44 +14,17 @@ MANGAWEB_DB=postgres://manga:password@host:5432/database
 
 Make sure you have setup the database and the user/password beforehand. Also please grant adequate privilege to the user as this user will be used to setup the database (create tables, indexes, etc.). I usually grant all privileges of the database/schema to the user.
 
+**note**
+
+Sqlite is used for unit test.
+
 ## Setup gRPC code generation.
 
 gRPC code is generated from protobuf schema files (*.proto) that is in separated project which is added as a submodule of this project. The code will be generated using `go generate` command. 
 
 However, in contrast to the Ent's geneated code, gRPC requires some elaborated setup in order to get it working.
 
-### Initialize the submodule
-
-To initialize submodule, run the following command.
-
-```sh
-$ git submodule init
-```
-
-And then, update the submodule to pull the code.
-
-```
-$ git submodule update
-```
-
-### Install gRPC toolchain
-
-Install `protoc` on the system. Using the instruction from the [protobuf website](https://protobuf.dev/installation/)
-
-Personally I find problems with include path when install `protoc` on Windows using `winget`, so I recommend using [Chocolatey](https://chocolatey.org/) instead.
-
-```sh
-$ choco install protoc
-```
-
-Then, use the following command to install gRPC toolchain for Go.
-
-```sh
-$ go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-$ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-```
-
-After this you should be able to generate gRPC codes. From the project directory, run `go generate ./grpc` to generate the code.
+Most of the setup is already done in devcontainer environment. Please use devcontainer as the development environment.
 
 ## Updating database code
 
