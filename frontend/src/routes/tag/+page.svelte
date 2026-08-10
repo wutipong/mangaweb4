@@ -87,7 +87,7 @@
 			<div class="bg-base-200 sticky top-16 z-1 flex w-full py-4 md:hidden">
 				<div class="flex-1"></div>
 				<button class="btn btn-ghost" onclick={() => filterDialog.showModal()}>
-					<Icon path={mdiFilterMenu}  /> Option
+					<Icon path={mdiFilterMenu} /> Option
 				</button>
 			</div>
 			<div class="w-full">

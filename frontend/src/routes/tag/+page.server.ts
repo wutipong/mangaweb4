@@ -13,7 +13,15 @@ export const prerender = false;
 async function createDefaultRequest(
 	request: Request,
 	cookies: Cookies
-): Promise<{ user: string; filter: Filter; order: SortOrder; sort: SortField; search: string; page: number; item_per_page: number; }> {
+): Promise<{
+	user: string;
+	filter: Filter;
+	order: SortOrder;
+	sort: SortField;
+	search: string;
+	page: number;
+	item_per_page: number;
+}> {
 	return {
 		user: await getUser(request, cookies),
 		search: '',

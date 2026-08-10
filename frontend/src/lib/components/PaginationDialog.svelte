@@ -81,7 +81,7 @@
 				</button>
 
 				<button class="join-item btn flex-none" onclick={() => goto(createLink(customPage))}>
-					<Icon path={mdiPageNext} ></Icon>
+					<Icon path={mdiPageNext}></Icon>
 					<div class="text hidden sm:block">Go</div>
 				</button>
 			</div>

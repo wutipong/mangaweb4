@@ -25,7 +25,9 @@
 			Welcome to Manga 4. To proceed to the system, please press the button below to begin OpenID
 			login process.
 
-			<button class="btn btn-primary w-full" onclick={() => login()}> <Icon path={mdiLogin} /> Login </button>
+			<button class="btn btn-primary w-full" onclick={() => login()}>
+				<Icon path={mdiLogin} /> Login
+			</button>
 		</div>
 	</Content>
 </Container>

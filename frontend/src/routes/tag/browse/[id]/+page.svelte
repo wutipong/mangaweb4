@@ -116,10 +116,10 @@
 						onclick={() => onTagFavorite()}
 					>
 						{#if favoriteTag}
-							<Icon path={mdiTagHeart}/>
+							<Icon path={mdiTagHeart} />
 							Favorite
 						{:else}
-							<Icon path={mdiTagHeartOutline}  />
+							<Icon path={mdiTagHeartOutline} />
 							Favorite
 						{/if}
 					</button>
@@ -127,7 +127,7 @@
 				<div class="flex md:hidden">
 					<div class="flex-1"></div>
 					<button class="btn btn-ghost" onclick={() => filterDialog.showModal()}>
-						<Icon path={mdiFilterMenu}  /> Option
+						<Icon path={mdiFilterMenu} /> Option
 					</button>
 				</div>
 

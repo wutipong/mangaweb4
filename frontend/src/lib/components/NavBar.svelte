@@ -41,7 +41,7 @@
 		<div class="flex-none place-self-center">
 			<a class="flex-none" href={page.url.origin.toString()}>
 				<div class="h-12 px-1">
-				{@html logo}
+					{@html logo}
 				</div>
 			</a>
 		</div>

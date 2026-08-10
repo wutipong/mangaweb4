@@ -77,13 +77,13 @@
 				goto(tagURL(page.url.origin));
 			}}
 		>
-			<Icon path={mdiCloseCircle}  />
+			<Icon path={mdiCloseCircle} />
 		</button>
 		<button
 			class="btn join-item flex-none"
 			onclick={() => goto(tagURL(page.url.origin, { search: search }))}
 		>
-			<Icon path={mdiMagnify}  />
+			<Icon path={mdiMagnify} />
 		</button>
 	</div>
 </fieldset>

@@ -24,28 +24,28 @@
 
 			<li class="list-row">
 				<button onclick={() => goto(browseURL(page.url.origin))}>
-					<Icon path={mdiBookshelf}  />&nbsp;Browse items
+					<Icon path={mdiBookshelf} />&nbsp;Browse items
 				</button>
 			</li>
 			<li class="list-row">
 				<button onclick={() => goto(tagURL(page.url.origin))}>
-					<Icon path={mdiTagMultiple}  />&nbsp;Tag list
+					<Icon path={mdiTagMultiple} />&nbsp;Tag list
 				</button>
 			</li>
 
 			<li class="list-row">
 				<button onclick={() => goto(historyURL(page.url.origin))}>
-					<Icon path={mdiHistory}  />&nbsp;History
+					<Icon path={mdiHistory} />&nbsp;History
 				</button>
 			</li>
 			<li class="list-row">
 				<button onclick={() => goto(userURL(page.url.origin))}>
-					<Icon path={mdiAccount}  />User
+					<Icon path={mdiAccount} />User
 				</button>
 			</li>
 			<li class="list-row">
 				<button onclick={() => goto(aboutURL(page.url.origin))}>
-					<Icon path={mdiInformation}  />About
+					<Icon path={mdiInformation} />About
 				</button>
 			</li>
 		</ul>

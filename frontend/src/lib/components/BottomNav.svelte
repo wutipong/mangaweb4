@@ -37,7 +37,7 @@
 <div class="fixed inset-x-1/2 bottom-10 md:hidden">
 	<div class="join bg-base-100 -translate-x-1/2 shadow-xl">
 		<button class="join-item btn" onclick={() => customInput.showModal()}>
-			<Icon path={pageIcon}  /> Page
+			<Icon path={pageIcon} /> Page
 		</button>
 
 		<button
@@ -59,7 +59,7 @@
 		</button>
 
 		<button class="join-item btn" onclick={moveToTop}>
-			<Icon path={moveUpIcon}  />
+			<Icon path={moveUpIcon} />
 			Top
 		</button>
 	</div>

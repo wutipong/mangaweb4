@@ -55,8 +55,8 @@
 			<span class="loading loading-bars loading-xl mx-auto my-auto"></span>
 		</div>
 	{:else if error}
-		<div class="absolute inset-1/2 place-self-center text-error">
-			<Icon path={mdiAlertCircle} size="64"/>
+		<div class="text-error absolute inset-1/2 place-self-center">
+			<Icon path={mdiAlertCircle} size="64" />
 		</div>
 	{/if}
 </div>
