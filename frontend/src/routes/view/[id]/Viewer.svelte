@@ -103,21 +103,25 @@
 </script>
 
 <button
-	class="absolute inset-y-1/2 inset-s-0 z-10 h-full w-1/5
+	class="absolute inset-y-1/2 inset-s-0 z-10 h-full w-1/8
 		-translate-y-1/2 cursor-pointer text-gray-500/50 hover:text-gray-500"
 	onclick={() => previous()}
 	{disabled}
 >
-	<Icon path={mdiChevronLeft}></Icon>
+	<div class="flex items-center justify-center">
+		<Icon path={mdiChevronLeft} />
+	</div>
 </button>
 
 <button
-	class="absolute inset-y-1/2 inset-e-0 z-10 h-full w-1/5
+	class="absolute inset-y-1/2 inset-e-0 z-10 h-full w-1/8
 		-translate-y-1/2 cursor-pointer text-gray-500/50 hover:text-gray-500"
 	onclick={() => next()}
 	{disabled}
 >
-	<Icon path={mdiChevronRight}></Icon>
+	<div class="flex items-center justify-center">
+		<Icon path={mdiChevronRight} />
+	</div>
 </button>
 
 <div
