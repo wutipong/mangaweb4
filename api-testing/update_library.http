@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:5173
+
+### Update Library
+# @prompt myApiKey Please enter your API Key
+
+GET {{baseUrl}}/api/maintenance/update_library
+Accept: application/json
+x-api-key: {{myApiKey}}
+

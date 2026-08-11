@@ -47,8 +47,35 @@ const handleBetterAuth: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
+// 3. API Key Request Middleware
+const handleSessionApiKey: Handle = async ({ event, resolve }) => {
+	const apiKey = event.request.headers.get('x-api-key');
+	if (!apiKey) {
+		throw error(401, 'apikey is missing.');
+	}
+
+	const resp = await auth().api.verifyApiKey({
+		body: { key: apiKey }
+	});
+
+	if (resp.error) {
+		throw error(401, resp.error.message || 'API key error');
+	}
+
+	if (!resp.valid) {
+		throw error(401, 'API key is invalid');
+	}
+
+	return resolve(event);
+};
+
 // 4. Session Validation and Guarding Middleware
 const handleSession: Handle = async ({ event, resolve }) => {
+	const apiKey = event.request.headers.get('x-api-key');
+	if (apiKey != null) {
+		return handleSessionApiKey({ event, resolve });
+	}
+
 	if (event.url.pathname.startsWith('/login')) {
 		return resolve(event);
 	}
