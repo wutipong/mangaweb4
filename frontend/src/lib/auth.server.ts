@@ -4,6 +4,7 @@ import { env } from '$env/dynamic/private';
 import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { genericOAuth } from 'better-auth/plugins';
+import { bearer } from "better-auth/plugins";
 import 'dotenv/config';
 
 // Create a safe build-time / initial module load validation proxy
@@ -20,6 +21,7 @@ export const auth = betterAuth({
 		options: '-c search_path=auth'
 	}),
 	plugins: [
+		bearer(),
 		sveltekitCookies(getRequestEvent),
 		genericOAuth({
 			config: [
