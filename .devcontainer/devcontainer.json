@@ -39,7 +39,8 @@
         "DrBlury.protobuf-vsc",
         "svelte.svelte-vscode",
         "bradlc.vscode-tailwindcss",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "humao.rest-client"
       ],
       "settings": {
         "editor.formatOnSave": true,
