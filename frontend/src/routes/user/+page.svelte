@@ -16,14 +16,6 @@
 	let { email, name } = page.data;
 	let showMenu = $state(false);
 
-	onMount(async () => {
-		const session = await authClient.getSession();
-		if (!session.data) {
-			console.log('session not found?');
-			return;
-		}
-	});
-
 	async function logout() {
 		await authClient.signOut({
 			fetchOptions: {

@@ -1,6 +1,5 @@
 import type { PageServerLoad } from './$types';
 import variables from '$lib/variables.server';
-import { getUser } from '$lib/user.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { Filter, SortField, SortOrder } from '$lib/grpc/types';
@@ -9,11 +8,11 @@ import logger from '$lib/logger';
 import { ITEM_PER_PAGE } from '$lib/constants';
 import { TagClient } from '$lib/grpc/tag.client';
 
-export const load: PageServerLoad = async ({ request, url, cookies, params }) => {
+export const load: PageServerLoad = async ({ request, url, cookies, params, locals }) => {
 	const id = parseInt(params.id ?? '');
 
 	const searchParams = url.searchParams;
-	const user = await getUser(request, cookies);
+	const user = locals.user;
 	const filter = $enum(Filter).getValueOrDefault(searchParams.get('filter'), Filter.UNKNOWN);
 	const sort = $enum(SortField).getValueOrDefault(
 		searchParams.get('sort'),

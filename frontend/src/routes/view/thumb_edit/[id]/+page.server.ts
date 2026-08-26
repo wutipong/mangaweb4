@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import { getUser } from '$lib/user.server';
 import variables from '$lib/variables.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
@@ -8,10 +7,10 @@ import { error } from '@sveltejs/kit';
 
 export const prerender = false;
 
-export const load: PageServerLoad = async ({ request, cookies, params }) => {
+export const load: PageServerLoad = async ({ params, locals }) => {
 	const { id } = params;
 
-	const user = await getUser(request, cookies);
+	const user = locals.user;
 
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,

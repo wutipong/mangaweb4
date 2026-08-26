@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import { getUser } from '$lib/user.server';
 import variables from '$lib/variables.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
@@ -9,11 +8,11 @@ import { getViewOptions } from '$lib/view_options.server';
 export const prerender = false;
 export const ssr = false;
 
-export const load: PageServerLoad = async ({ request, cookies, params }) => {
+export const load: PageServerLoad = async ({ request, cookies, params, locals }) => {
 	const { id } = params;
 	const idNo = parseInt(id);
 
-	const user = await getUser(request, cookies);
+	const user = locals.user;
 
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
