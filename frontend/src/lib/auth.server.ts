@@ -10,14 +10,10 @@ import 'dotenv/config';
 // Create a safe build-time / initial module load validation proxy
 export const auth = betterAuth({
 	// Use process.env as a fallback because $env/dynamic/private is sometimes blank during early module evaluation
-	secret:
-		env.BETTER_AUTH_SECRET ||
-		process.env.BETTER_AUTH_SECRET ||
-		'placeholder_secret_for_build_step_only',
-	baseURL: env.BETTER_AUTH_URL || process.env.BETTER_AUTH_URL || 'http://localhost:5173',
+	secret: env.BETTER_AUTH_SECRET || 'placeholder_secret_for_build_step_only',
+	baseURL: env.BETTER_AUTH_URL || 'http://localhost:5173',
 	database: new Pool({
-		connectionString:
-			env.MANGAWEB_DB || process.env.MANGAWEB_DB || 'postgresql://localhost:5432/placeholder',
+		connectionString: env.MANGAWEB_DB || 'postgresql://localhost:5432/placeholder',
 		options: '-c search_path=auth'
 	}),
 	plugins: [
@@ -31,9 +27,7 @@ export const auth = betterAuth({
 					providerId: env.OIDC_PROVIDER_ID || 'placeholder-provider',
 					clientId: env.OIDC_CLIENT || 'placeholder-client',
 					clientSecret: env.OIDC_SECRET || 'placeholder-secret',
-					issuer: env.OIDC_ISSUER || 'https://placeholder-issuer.com',
-					tokenUrl: env.OIDC_TOKEN || 'https://placeholder-issuer.com',
-					authorizationUrl: env.OIDC_AUTHORIZE || 'https://placeholder-issuer.com',
+					discoveryUrl: env.OIDC_CONFIG || 'http://placehodler-config',
 					requireIssuerValidation: false,
 					scopes: ['openid', 'email', 'profile']
 				}
