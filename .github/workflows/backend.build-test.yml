@@ -21,6 +21,9 @@ jobs:
       with:
         go-version: '^1.27'
 
+    - name: install vips
+      run: apt install libvips-dev
+
     - name: Build
       run: go build -v ./...
       working-directory: ./backend
