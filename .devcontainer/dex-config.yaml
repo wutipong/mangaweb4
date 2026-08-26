@@ -25,4 +25,4 @@ staticClients:
     secret: mangaweb4-secret
     name: "MangaWeb 4"
     redirectURIs:
-      - 'http://localhost:5173/api/auth/oauth2/callback/dex'
+      - 'http://localhost:5173/api/auth/callback/dex'
