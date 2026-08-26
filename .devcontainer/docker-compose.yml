@@ -24,7 +24,7 @@ services:
       OIDC_CLIENT: mangaweb4
       OIDC_SECRET: mangaweb4-secret
       OIDC_PROVIDER_ID: dex
-      OIDC_CONFIG: http://oidc.localhost:5556/.well-known/openid-configuration
+      OIDC_DISCOVERY_URL: http://oidc.localhost:5556/.well-known/openid-configuration
 
       LOG_LEVEL: debug
 
