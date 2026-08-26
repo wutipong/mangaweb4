@@ -5,7 +5,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"image"
 	"io"
 	"io/fs"
 	"os"
@@ -13,12 +12,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/disintegration/imaging"
 	"github.com/mangaweb4/mangaweb4-backend/configuration"
 	"github.com/mangaweb4/mangaweb4-backend/container"
 	"github.com/mangaweb4/mangaweb4-backend/ent"
 	"github.com/mangaweb4/mangaweb4-backend/ent/meta"
 	tag_util "github.com/mangaweb4/mangaweb4-backend/tag"
+	"github.com/mangaweb4/mangaweb4-backend/vips"
 	"github.com/rs/zerolog/log"
 
 	"golang.org/x/exp/slices"
@@ -79,7 +78,7 @@ type CropDetails struct {
 	Height int `json:"height"`
 }
 
-func CreateThumbnail(m *ent.Meta) (thumbnail image.Image, err error) {
+func CreateThumbnail(m *ent.Meta) (thumbnail *vips.Image, err error) {
 	mutex := new(sync.Mutex)
 	mutex.Lock()
 	defer mutex.Unlock()
@@ -96,27 +95,26 @@ func CreateThumbnail(m *ent.Meta) (thumbnail image.Image, err error) {
 
 	defer func() { log.Err(stream.Close()).Msg("close thumbnail stream.") }()
 
-	img, err := imaging.Decode(stream, imaging.AutoOrientation(true))
+	imgSrc := vips.NewSource(stream)
+
+	options := vips.DefaultLoadOptions()
+	// options.Autorotate = true
+
+	img, err := vips.NewImageFromSource(imgSrc, options)
 	if err != nil {
+		err = fmt.Errorf("unable to load image: %w", err)
 		return
 	}
 
 	if m.ThumbnailWidth > 0 && m.ThumbnailHeight > 0 {
-		img = imaging.Crop(img, image.Rectangle{
-			Min: image.Point{
-				X: m.ThumbnailX,
-				Y: m.ThumbnailY,
-			},
-			Max: image.Point{
-				X: m.ThumbnailX + m.ThumbnailWidth,
-				Y: m.ThumbnailY + m.ThumbnailHeight,
-			},
-		})
+		img.ExtractArea(m.ThumbnailX, m.ThumbnailY, m.ThumbnailWidth, m.ThumbnailHeight)
 	}
 
-	if img.Bounds().Dy() > THUMBNAIL_HEIGHT {
-		resized := imaging.Resize(img, 0, THUMBNAIL_HEIGHT, imaging.MitchellNetravali)
-		img = resized
+	if img.Height() > THUMBNAIL_HEIGHT {
+		thumbnailOptions := vips.DefaultThumbnailImageOptions()
+		thumbnailOptions.Height = THUMBNAIL_HEIGHT
+
+		img.ThumbnailImage(1000000, thumbnailOptions)
 	}
 
 	thumbnail = img
@@ -144,15 +142,34 @@ func GetThumbnailBytes(m *ent.Meta) (thumbnail []byte, err error) {
 				err = e
 				return
 			}
+			defer img.Close()
 
-			err = imaging.Save(img, thumbfile, imaging.JPEGQuality(75))
-			if err != nil {
-				return
+			{
+				options := vips.DefaultJpegsaveOptions()
+				options.Q = 75
+				err = img.Jpegsave(thumbfile, options)
+				if err != nil {
+					return
+				}
 			}
 
-			err = imaging.Encode(&buffer, img, imaging.JPEG, imaging.JPEGQuality(75))
-			if err != nil {
-				return
+			{
+				var wc io.WriteCloser = struct {
+					io.Writer
+					io.Closer
+				}{
+					Writer: &buffer,
+					Closer: io.NopCloser(nil), // Uses a nil-safe no-op closer
+				}
+
+				target := vips.NewTarget(wc)
+				options := vips.DefaultJpegsaveTargetOptions()
+				options.Q = 75
+				err = img.JpegsaveTarget(target, options)
+				if err != nil {
+					err = fmt.Errorf("unable to populate image: %w", err)
+					return
+				}
 			}
 		} else {
 			return

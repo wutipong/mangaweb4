@@ -22,7 +22,7 @@
     },
 
     "ghcr.io/devcontainers-extra/features/apt-packages:1": {
-      "packages": "postgresql-client, python3, libvips-dev, libvips-tools"
+      "packages": "postgresql-client, python3, libvips-dev, libvips-tools, libwebp-dev"
     },
     "ghcr.io/devcontainers-extra/features/bun:1": {
       "version": "latest"
