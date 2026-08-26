@@ -9,7 +9,6 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/disintegration/imaging"
 	"github.com/mangaweb4/mangaweb4-backend/container"
 	"github.com/mangaweb4/mangaweb4-backend/database"
 	ent_meta "github.com/mangaweb4/mangaweb4-backend/ent/meta"
@@ -18,6 +17,7 @@ import (
 	"github.com/mangaweb4/mangaweb4-backend/grpc"
 	"github.com/mangaweb4/mangaweb4-backend/meta"
 	"github.com/mangaweb4/mangaweb4-backend/user"
+	"github.com/mangaweb4/mangaweb4-backend/vips"
 	"github.com/rs/zerolog/log"
 	grpclib "google.golang.org/grpc"
 )
@@ -26,9 +26,6 @@ const IMAGE_MESSAGE_SIZE = 64 * 1024
 const ZIP_MESSAGE_SIZE = 256 * 1024
 const HIGH_QUALITY_DIMENSION = 2048
 const LOW_QUALITY_DIMENSION = 1024
-
-var HIGH_QUALITY_ALGORITHM = imaging.MitchellNetravali
-var LOW_QUALITY_ALGORITHM = imaging.Lanczos
 
 const HIGH_QUALITY_JPEG_QUALITY = 95
 const LOW_QUALITY_JPEG_QUALITY = 75
@@ -450,39 +447,51 @@ func (s *MangaServer) PageImageStream(req *grpc.MangaPageImageRequest,
 
 	} else {
 		reader := bytes.NewBuffer(data)
+		src := vips.NewSource(io.NopCloser(reader))
+		options := vips.DefaultLoadOptions()
+		img, err := vips.NewImageFromSource(src, options)
 
-		img, err := imaging.Decode(reader, imaging.AutoOrientation(true))
 		if err != nil {
-			return err
+			return fmt.Errorf("unable to load image: %w", err)
 		}
 
 		targetDimension := HIGH_QUALITY_DIMENSION
-		algorithm := HIGH_QUALITY_ALGORITHM
 		jpegQuality := HIGH_QUALITY_JPEG_QUALITY
 
 		if quality == grpc.ImageQuality_IMAGE_QUALITY_LOW {
 			targetDimension = LOW_QUALITY_DIMENSION
-			algorithm = LOW_QUALITY_ALGORITHM
 			jpegQuality = LOW_QUALITY_JPEG_QUALITY
 		}
 
 		log.Debug().Int("targetDimension", targetDimension).Int("jpegQuality", jpegQuality).Msg("")
 
-		dimension := max(img.Bounds().Dx(), img.Bounds().Dy())
+		dimension := max(img.Width(), img.Height())
 
 		if dimension > targetDimension {
-			resized := imaging.Fit(img, targetDimension, targetDimension, algorithm)
-			img = resized
+			options := vips.DefaultThumbnailImageOptions()
+			options.Height = targetDimension
+			img.ThumbnailImage(targetDimension, options)
 		}
 
-		log.Debug().Interface("Bounds", img.Bounds()).Msg("image")
+		log.Debug().Interface("Bounds", img.Height()).Msg("image")
 
 		var buf bytes.Buffer
+		{
+			var wc io.WriteCloser = struct {
+				io.Writer
+				io.Closer
+			}{
+				Writer: &buf,
+				Closer: io.NopCloser(nil), // Uses a nil-safe no-op closer
+			}
 
-		err = imaging.Encode(&buf, img, imaging.JPEG, imaging.JPEGQuality(jpegQuality))
-
-		if err != nil {
-			return err
+			target := vips.NewTarget(wc)
+			options := vips.DefaultJpegsaveTargetOptions()
+			options.Q = jpegQuality
+			err = img.JpegsaveTarget(target, options)
+			if err != nil {
+				return fmt.Errorf("unable to populate image: %w", err)
+			}
 		}
 
 		filename = fmt.Sprintf("%s.jpeg", filepath.Base(filename))
