@@ -496,7 +496,7 @@ func (s *MangaServer) PageImageStream(req *grpc.MangaPageImageRequest,
 			Filename:    filename,
 			ContentType: contentType,
 			Data:        data[i:end],
-			Size:        int32(end - i),
+			TotalSize:   int64(length),
 		})
 
 		if err != nil {

@@ -136,7 +136,8 @@ message MangaPageImageStreamResponse {
   string Filename = 1;
   string ContentType = 2;
   bytes Data = 3;
-  int32 Size = 4;
+  reserved 4;
+  int64 TotalSize = 5;
 }
 
 message MangaRepairRequest {
