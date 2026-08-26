@@ -21,7 +21,6 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"golang.org/x/exp/slices"
-	_ "golang.org/x/image/webp"
 )
 
 const (
