@@ -30,7 +30,7 @@ function createDefaultRequest(): {
 	};
 }
 
-export const load: PageServerLoad = async ({ request, url, cookies }) => {
+export const load: PageServerLoad = async ({ url, locals }) => {
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -39,17 +39,8 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
 	const client = new MangaClient(transport);
 
 	const req = createDefaultRequest();
-	let { user, filter, order, page, search, sort } = req;
+	let { filter, order, page, search, sort } = req;
 	const item_per_page = req.item_per_page;
-
-	logger.info('session');
-	try {
-		const session = await auth().api.getSession({ headers: request.headers });
-		logger.debug({ session }, 'session');
-		user = session?.user.email ?? '';
-	} catch (e) {
-		logger.error(e);
-	}
 
 	const params = url.searchParams;
 	if (params.has('filter')) {
@@ -79,7 +70,7 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
 	}
 
 	const call = await client.list({
-		user: user,
+		user: locals.user.email,
 		filter: filter,
 		page: page,
 		itemPerPage: item_per_page,

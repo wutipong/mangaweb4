@@ -1,5 +1,4 @@
 import type { PageServerLoad } from './$types';
-import { getUserDetail } from '$lib/user.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import variables from '$lib/variables.server';
 import { ChannelCredentials } from '@grpc/grpc-js';
@@ -7,8 +6,8 @@ import logger from '$lib/logger';
 import { UserClient } from '$lib/grpc/user.client';
 import { SystemClient } from '$lib/grpc/system.client';
 
-export const load: PageServerLoad = async ({ request, cookies }) => {
-	const user = await getUserDetail(request, cookies);
+export const load: PageServerLoad = async ({ locals }) => {
+	const user = locals.user;
 
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,

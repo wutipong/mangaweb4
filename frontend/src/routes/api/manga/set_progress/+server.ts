@@ -3,9 +3,8 @@ import type { RequestHandler } from './$types';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { MangaClient } from '$lib/grpc/manga.client';
 import variables from '$lib/variables.server';
-import { getUser } from '$lib/user.server';
 
-export const GET: RequestHandler = async ({ request, cookies }) => {
+export const GET: RequestHandler = async ({ request, locals }) => {
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -15,7 +14,7 @@ export const GET: RequestHandler = async ({ request, cookies }) => {
 	const url = new URL(request.url);
 
 	const id = parseInt(url.searchParams.get('id') ?? '') ?? 0;
-	const user = await getUser(request, cookies);
+	const user = locals.user;
 	const page = Number.parseInt(url.searchParams.get('page') ?? '') ?? 0;
 
 	const { response } = await client.setProgress({ id: id, user, page });

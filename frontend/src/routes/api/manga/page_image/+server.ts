@@ -3,13 +3,12 @@ import type { RequestHandler } from './$types';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { MangaClient } from '$lib/grpc/manga.client';
 import variables from '$lib/variables.server';
-import { getUser } from '$lib/user.server';
 import { MAX_STREAM_OBJECT_SIZE } from '$lib/constants';
 import { error } from '@sveltejs/kit';
 import { ImageQuality } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
 
-export const GET: RequestHandler = async ({ request, cookies, url }) => {
+export const GET: RequestHandler = async ({ request, cookies, url, locals }) => {
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -17,7 +16,7 @@ export const GET: RequestHandler = async ({ request, cookies, url }) => {
 
 	const client = new MangaClient(transport);
 	const index = parseInt(url.searchParams.get('i') ?? '') || 0;
-	const user = await getUser(request, cookies);
+	const user = locals.user;
 	const id = parseInt(url.searchParams.get('id') ?? '');
 	if (id == 0 || Number.isNaN(id)) {
 		error(404);
