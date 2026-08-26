@@ -28,7 +28,6 @@ export const auth = betterAuth({
 					clientId: env.OIDC_CLIENT || 'placeholder-client',
 					clientSecret: env.OIDC_SECRET || 'placeholder-secret',
 					discoveryUrl: env.OIDC_CONFIG || 'http://placehodler-config',
-					requireIssuerValidation: false,
 					scopes: ['openid', 'email', 'profile']
 				}
 			]
