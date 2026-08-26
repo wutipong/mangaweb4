@@ -22,7 +22,8 @@ import (
 	grpclib "google.golang.org/grpc"
 )
 
-const MESSAGE_SIZE = 1024 * 1024
+const IMAGE_MESSAGE_SIZE = 64 * 1024
+const ZIP_MESSAGE_SIZE = 256 * 1024
 const HIGH_QUALITY_DIMENSION = 2048
 const LOW_QUALITY_DIMENSION = 1024
 
@@ -490,8 +491,8 @@ func (s *MangaServer) PageImageStream(req *grpc.MangaPageImageRequest,
 
 	length := len(data)
 
-	for i := 0; i < length; i += MESSAGE_SIZE {
-		end := min(i+MESSAGE_SIZE, length)
+	for i := 0; i < length; i += IMAGE_MESSAGE_SIZE {
+		end := min(i+IMAGE_MESSAGE_SIZE, length)
 		err = stream.Send(&grpc.MangaPageImageStreamResponse{
 			Filename:    filename,
 			ContentType: contentType,
@@ -581,8 +582,8 @@ func (s *MangaServer) Download(
 
 	length := len(bytes)
 
-	for i := 0; i < length; i += MESSAGE_SIZE {
-		end := min(i+MESSAGE_SIZE, length)
+	for i := 0; i < length; i += ZIP_MESSAGE_SIZE {
+		end := min(i+ZIP_MESSAGE_SIZE, length)
 		err = stream.Send(&grpc.MangaDownloadResponse{
 			Filename:    filename,
 			ContentType: "application/zip",
