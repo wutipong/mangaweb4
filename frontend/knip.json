@@ -1,12 +1,7 @@
 {
     "$schema": "https://unpkg.com/knip@6/schema.json",
-    "entry": [
-        "pwa-favicon.config.ts"
-    ],
+    "entry": [],
     "ignore": [
-        "src/lib/server/grpc/proto/**"
-    ],
-    "ignoreDependencies": [
-        "ts-proto"
+        "src/lib/grpc/**"
     ]
 }
