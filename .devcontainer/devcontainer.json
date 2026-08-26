@@ -2,7 +2,7 @@
   "name": "MangaWeb4 Backend (Go + PostgreSQL)",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/workspaces/",
   "runServices": ["oidc"],
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
@@ -15,18 +15,18 @@
       "version": "latest"
     },
     "ghcr.io/azutake/devcontainer-features/go-packages-install:0": {
-      "PACKAGES": "google.golang.org/protobuf/cmd/protoc-gen-go@latest,google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest,entgo.io/ent/cmd/ent@latest"
+      "PACKAGES": "google.golang.org/protobuf/cmd/protoc-gen-go@latest,google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest,entgo.io/ent/cmd/ent@latest,github.com/cshum/vipsgen/cmd/vipsgen@latest"
     },
     "ghcr.io/devcontainers-extra/features/protoc:1": {
       "version": "latest"
     },
-    
+
     "ghcr.io/devcontainers-extra/features/apt-packages:1": {
-      "packages": "postgresql-client, python3"
+      "packages": "postgresql-client, python3, libvips-dev, libvips-tools"
     },
     "ghcr.io/devcontainers-extra/features/bun:1": {
       "version": "latest"
-    },
+    }
   },
 
   "customizations": {
@@ -82,8 +82,12 @@
     }
   },
 
-  "forwardPorts": [8972, "db:5432", "oidc:5556"],
+  "forwardPorts": [5173, 8972, "db:5432", "oidc:5556"],
   "portsAttributes": {
+    "5173": {
+      "label": "Application",
+      "onAutoForward": "notify"
+    },
     "8972": {
       "label": "gRPC Server",
       "onAutoForward": "notify"
@@ -96,12 +100,6 @@
       "label": "OIDC Provider",
       "onAutoForward": "notify"
     }
-  },
-
-
-  "remoteEnv": {
-    "MANGAWEB_DATA_PATH": "/workspaces/${localWorkspaceFolderBasename}/backend/data",
-    "MANGAWEB_CACHE_PATH": "/workspaces/${localWorkspaceFolderBasename}/backend/cache"
   },
 
   "remoteUser": "vscode"
