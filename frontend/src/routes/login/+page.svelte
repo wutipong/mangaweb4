@@ -10,7 +10,7 @@
 	$inspect(data);
 
 	async function login() {
-		authClient.signIn.oauth2(data);
+		authClient.signIn.social({ provider: data.providerId });
 	}
 </script>
 

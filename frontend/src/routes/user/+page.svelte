@@ -22,12 +22,6 @@
 	let apiNewKey = $state('');
 
 	onMount(async () => {
-		const session = await authClient.getSession();
-		if (!session.data) {
-			console.log('session not found?');
-			return;
-		}
-
 		const keys = await authClient.apiKey.list();
 		if (keys.data) {
 			apiKeys = keys.data.apiKeys;

@@ -24,12 +24,7 @@ services:
       OIDC_CLIENT: mangaweb4
       OIDC_SECRET: mangaweb4-secret
       OIDC_PROVIDER_ID: dex
-      OIDC_AUTHORIZE: http://localhost:5556/auth
-      OIDC_TOKEN: http://oidc:5556/token
-      OIDC_ISSUER: http://localhost:5556
-      OIDC_JWKS: http://oidc:5556/keys
-      OIDC_LOGOUT: http://localhost:5173/login
-      OIDC_CONFIG: http://localhost:5556/.well-known/openid-configuration
+      OIDC_DISCOVERY_URL: http://oidc.localhost:5556/.well-known/openid-configuration
 
       LOG_LEVEL: debug
 
@@ -39,8 +34,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - mangaweb
 
   db:
     image: postgres:17-alpine
@@ -59,8 +52,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
-    networks:
-      - mangaweb
+
   oidc:
     image: ghcr.io/dexidp/dex:v2.41.0
     command: dex serve /etc/dex/cfg/config.yaml
@@ -69,8 +61,10 @@ services:
     ports:
       - "5556:5556" # Maps the browser-facing localhost:5556 port
     networks:
-      - mangaweb
-      
+      default:
+        aliases:
+          - oidc.localhost
+
 volumes:
   postgres-data:
   go-mod-cache:

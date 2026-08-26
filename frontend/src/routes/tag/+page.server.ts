@@ -1,19 +1,14 @@
 import type { PageServerLoad } from './$types';
-import { getUser } from '$lib/user.server';
 import variables from '$lib/variables.server';
 import { GrpcTransport } from '@protobuf-ts/grpc-transport';
 import { ChannelCredentials } from '@grpc/grpc-js';
 import { TagClient } from '$lib/grpc/tag.client';
 import { SortOrder, SortField, Filter } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
-import type { Cookies } from '@sveltejs/kit';
 
 export const prerender = false;
 
-async function createDefaultRequest(
-	request: Request,
-	cookies: Cookies
-): Promise<{
+async function createDefaultRequest(locals: App.Locals): Promise<{
 	user: string;
 	filter: Filter;
 	order: SortOrder;
@@ -23,7 +18,7 @@ async function createDefaultRequest(
 	item_per_page: number;
 }> {
 	return {
-		user: await getUser(request, cookies),
+		user: locals.user,
 		search: '',
 		filter: Filter.UNKNOWN,
 		page: 0,
@@ -33,8 +28,8 @@ async function createDefaultRequest(
 	};
 }
 
-export const load: PageServerLoad = async ({ request, url, cookies }) => {
-	const req = await createDefaultRequest(request, cookies);
+export const load: PageServerLoad = async ({ url, locals }) => {
+	const req = await createDefaultRequest(locals);
 
 	let { search, filter, page, item_per_page, order, sort } = req;
 	const user = req.user;
