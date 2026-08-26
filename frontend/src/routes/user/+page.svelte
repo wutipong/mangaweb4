@@ -12,6 +12,7 @@
 	import Icon from 'mdi-svelte';
 	import { mdiAlert, mdiKeyPlus, mdiKeyRemove, mdiLogout, mdiMinus, mdiPlus } from '@mdi/js';
 	import { authClient } from '$lib/auth';
+	import { onMount } from 'svelte';
 
 	let { email, name } = page.data;
 	let showMenu = $state(false);
@@ -21,12 +22,6 @@
 	let apiNewKey = $state('');
 
 	onMount(async () => {
-		const session = await authClient.getSession();
-		if (!session.data) {
-			console.log('session not found?');
-			return;
-		}
-
 		const keys = await authClient.apiKey.list();
 		if (keys.data) {
 			apiKeys = keys.data.apiKeys;
