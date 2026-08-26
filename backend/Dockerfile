@@ -1,20 +1,40 @@
 #Stage 1 -- building executable
-FROM golang:1.27-alpine AS builder1
+FROM ubuntu:26.04 AS builder
 
-WORKDIR /go/src/mangaweb
+# Install native dependencies required by govips and ffmpeg-go
+RUN apt-get update && apt-get install -y --fix-broken \
+    && apt-get install -y --no-install-recommends \
+    build-essential \
+    golang-go \
+    libvips-dev \
+    ffmpeg \
+    libvpx12 \
+    libopus0 \
+    ca-certificates
+
+# Cache dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+WORKDIR /app
+
+# Copy source and build
 COPY . .
 
 ARG VERSION=Development
-RUN apk add git
 RUN go get ./...
 RUN go build -o mangaweb4-backend .
 
 # Stage 2 -- build the target image
-FROM alpine:latest
+FROM ubuntu:26.04
 
 WORKDIR /root/
-COPY --from=builder1 /go/src/mangaweb/mangaweb4-backend ./
+COPY --from=builder /app/mangaweb4-backend ./
 
-EXPOSE 8972
+# Install runtime native libraries (libvips, ffmpeg)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libvips \
+    ca-certificates 
 
 CMD ["./mangaweb4-backend"]
+EXPOSE 8972
