@@ -21,6 +21,8 @@ import (
 	grpclib "google.golang.org/grpc"
 )
 
+//go:generate vipsgen -out ./vips
+
 func main() {
 	ctx := context.Background()
 
