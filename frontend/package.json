@@ -10,8 +10,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write .",
+		"lint": "prettierx --check . && eslint .",
+		"format": "prettier --write .",
 		"generate-grpc": "protoc --ts_out=src/lib/grpc --proto_path=../grpc history.proto maintenance.proto manga.proto tag.proto types.proto system.proto user.proto",
 		"svelte-check": "svelte-check",
 		"eslint": "eslint ."
