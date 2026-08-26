@@ -336,9 +336,9 @@ export interface MangaPageImageStreamResponse {
      */
     data: Uint8Array;
     /**
-     * @generated from protobuf field: int32 Size = 4
+     * @generated from protobuf field: int64 TotalSize = 5
      */
-    size: number;
+    totalSize: bigint;
 }
 /**
  * @generated from protobuf message MangaRepairRequest
@@ -1471,7 +1471,7 @@ class MangaPageImageStreamResponse$Type extends MessageType<MangaPageImageStream
             { no: 1, name: "Filename", kind: "scalar", jsonName: "Filename", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "ContentType", kind: "scalar", jsonName: "ContentType", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "Data", kind: "scalar", jsonName: "Data", T: 12 /*ScalarType.BYTES*/ },
-            { no: 4, name: "Size", kind: "scalar", jsonName: "Size", T: 5 /*ScalarType.INT32*/ }
+            { no: 5, name: "TotalSize", kind: "scalar", jsonName: "TotalSize", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
         ]);
     }
     create(value?: PartialMessage<MangaPageImageStreamResponse>): MangaPageImageStreamResponse {
@@ -1479,7 +1479,7 @@ class MangaPageImageStreamResponse$Type extends MessageType<MangaPageImageStream
         message.filename = "";
         message.contentType = "";
         message.data = new Uint8Array(0);
-        message.size = 0;
+        message.totalSize = 0n;
         if (value !== undefined)
             reflectionMergePartial<MangaPageImageStreamResponse>(this, message, value);
         return message;
@@ -1498,8 +1498,8 @@ class MangaPageImageStreamResponse$Type extends MessageType<MangaPageImageStream
                 case /* bytes Data */ 3:
                     message.data = reader.bytes();
                     break;
-                case /* int32 Size */ 4:
-                    message.size = reader.int32();
+                case /* int64 TotalSize */ 5:
+                    message.totalSize = reader.int64().toBigInt();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -1522,9 +1522,9 @@ class MangaPageImageStreamResponse$Type extends MessageType<MangaPageImageStream
         /* bytes Data = 3; */
         if (message.data.length)
             writer.tag(3, WireType.LengthDelimited).bytes(message.data);
-        /* int32 Size = 4; */
-        if (message.size !== 0)
-            writer.tag(4, WireType.Varint).int32(message.size);
+        /* int64 TotalSize = 5; */
+        if (message.totalSize !== 0n)
+            writer.tag(5, WireType.Varint).int64(message.totalSize);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

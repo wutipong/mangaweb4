@@ -1,15 +1,15 @@
 # Dev Container
 
-A ready-to-use development environment for the MangaWeb4 backend (Go 1.26) with a
+A ready-to-use development environment for the MangaWeb4 backend (Go 1.27) with a
 PostgreSQL 17 service.
 
 ## What's included
 
-| Component        | Details                                                              |
-| ---------------- | ------------------------------------------------------------------- |
-| **app** service  | Go 1.26 toolchain, `protoc` + Go/gRPC plugins, `ent`, `psql` client |
-| **db** service   | PostgreSQL 17 (alpine), database `manga`, user/pass `postgres`/`password` |
-| VS Code exts     | Go, Docker, SQLTools (+ PostgreSQL driver), Proto3                  |
+| Component       | Details                                                                   |
+| --------------- | ------------------------------------------------------------------------- |
+| **app** service | Go 1.27 toolchain, `protoc` + Go/gRPC plugins, `ent`, `psql` client       |
+| **db** service  | PostgreSQL 17 (alpine), database `manga`, user/pass `postgres`/`password` |
+| VS Code exts    | Go, Docker, SQLTools (+ PostgreSQL driver), Proto3                        |
 
 ## Getting started
 
@@ -50,10 +50,10 @@ The gRPC server listens on `:8972` (forwarded to the host).
 
 ## Ports
 
-| Port | Service        |
-| ---- | -------------- |
-| 8972 | gRPC server    |
-| 5432 | PostgreSQL     |
+| Port | Service     |
+| ---- | ----------- |
+| 8972 | gRPC server |
+| 5432 | PostgreSQL  |
 
 ## Resetting the database
 

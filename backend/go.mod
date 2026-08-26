@@ -1,6 +1,6 @@
 module github.com/mangaweb4/mangaweb4-backend
 
-go 1.26
+go 1.27
 
 require github.com/joho/godotenv v1.5.1
 

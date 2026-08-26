@@ -1050,7 +1050,7 @@ type MangaPageImageStreamResponse struct {
 	Filename      string                 `protobuf:"bytes,1,opt,name=Filename,proto3" json:"Filename,omitempty"`
 	ContentType   string                 `protobuf:"bytes,2,opt,name=ContentType,proto3" json:"ContentType,omitempty"`
 	Data          []byte                 `protobuf:"bytes,3,opt,name=Data,proto3" json:"Data,omitempty"`
-	Size          int32                  `protobuf:"varint,4,opt,name=Size,proto3" json:"Size,omitempty"`
+	TotalSize     int64                  `protobuf:"varint,5,opt,name=TotalSize,proto3" json:"TotalSize,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1106,9 +1106,9 @@ func (x *MangaPageImageStreamResponse) GetData() []byte {
 	return nil
 }
 
-func (x *MangaPageImageStreamResponse) GetSize() int32 {
+func (x *MangaPageImageStreamResponse) GetTotalSize() int64 {
 	if x != nil {
-		return x.Size
+		return x.TotalSize
 	}
 	return 0
 }
@@ -1401,12 +1401,12 @@ const file_manga_proto_rawDesc = "" +
 	"\aQuality\x18\a \x01(\x0e2\x1d.mangaweb4.types.ImageQualityR\aQualityJ\x04\b\x02\x10\x03J\x04\b\x04\x10\x05J\x04\b\x05\x10\x06\"N\n" +
 	"\x16MangaPageImageResponse\x12 \n" +
 	"\vContentType\x18\x01 \x01(\tR\vContentType\x12\x12\n" +
-	"\x04Data\x18\x02 \x01(\fR\x04Data\"\x84\x01\n" +
+	"\x04Data\x18\x02 \x01(\fR\x04Data\"\x94\x01\n" +
 	"\x1cMangaPageImageStreamResponse\x12\x1a\n" +
 	"\bFilename\x18\x01 \x01(\tR\bFilename\x12 \n" +
 	"\vContentType\x18\x02 \x01(\tR\vContentType\x12\x12\n" +
-	"\x04Data\x18\x03 \x01(\fR\x04Data\x12\x12\n" +
-	"\x04Size\x18\x04 \x01(\x05R\x04Size\"*\n" +
+	"\x04Data\x18\x03 \x01(\fR\x04Data\x12\x1c\n" +
+	"\tTotalSize\x18\x05 \x01(\x03R\tTotalSizeJ\x04\b\x04\x10\x05\"*\n" +
 	"\x12MangaRepairRequest\x12\x0e\n" +
 	"\x02Id\x18\x03 \x01(\x05R\x02IdJ\x04\b\x01\x10\x02\"G\n" +
 	"\x13MangaRepairResponse\x12\x12\n" +

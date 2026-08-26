@@ -30,7 +30,9 @@ export const GET: RequestHandler = async ({ request, cookies, url, locals }) => 
 
 	let filename = '';
 	let contentType = '';
-	const buffer = new ArrayBuffer(0, { maxByteLength: MAX_STREAM_OBJECT_SIZE });
+
+	const sink = new Bun.ArrayBufferSink();
+	sink.start({ asUint8Array: true });
 
 	for await (const message of stream.responses) {
 		if (filename == '') {
@@ -38,18 +40,15 @@ export const GET: RequestHandler = async ({ request, cookies, url, locals }) => 
 			contentType = message.contentType;
 		}
 
-		const offset = buffer.byteLength;
-		buffer.resize(buffer.byteLength + message.data.length);
-
-		const array = new Uint8Array(buffer, offset, message.data.length);
-		array.set(message.data);
+		sink.write(message.data);
 	}
 
-	return new Response(buffer, {
+	let data = sink.end();
+	return new Response(data, {
 		headers: {
 			'content-type': contentType,
 			'content-disposition': `attachment; filename="${encodeURIComponent(filename)}"`,
-			'content-length': `${buffer.byteLength}`
+			'content-length': `${data.byteLength}`
 		}
 	});
 };
