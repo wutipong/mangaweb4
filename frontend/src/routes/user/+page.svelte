@@ -11,7 +11,6 @@
 	import Icon from 'mdi-svelte';
 	import { mdiLogout } from '@mdi/js';
 	import { authClient } from '$lib/auth';
-	import { onMount } from 'svelte';
 
 	let { email, name } = page.data;
 	let showMenu = $state(false);
