@@ -10,7 +10,7 @@
 	import md5 from 'md5';
 
 	import Icon from 'mdi-svelte';
-	import { mdiAlert, mdiKeyPlus, mdiKeyRemove, mdiLogout, mdiMinus, mdiPlus } from '@mdi/js';
+	import { mdiAlert, mdiLogout } from '@mdi/js';
 	import { authClient } from '$lib/auth';
 	import { onMount } from 'svelte';
 
@@ -127,47 +127,6 @@
 					</tbody>
 				</table>
 			</div>
-			<hr />
-			<h2>API Key</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Key</th>
-						<th>Created At</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each apiKeys as apiKey}
-						<tr>
-							<td>{apiKey.start}...</td>
-							<td>{apiKey.createdAt.toLocaleString()}</td>
-							<td>
-								<button class="btn btn-sm" onclick={() => deleteApiKey(apiKey.id)}>
-									<Icon path={mdiKeyRemove} />Delete
-								</button>
-							</td>
-						</tr>
-					{/each}
-					<tr>
-						<td></td>
-						<td></td>
-						<td>
-							<button class="btn btn-sm btn-primary" onclick={() => addNewApiKey()}>
-								<Icon path={mdiKeyPlus} />Add
-							</button>
-						</td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Key</th>
-						<th>Created At</th>
-						<th>Action</th>
-					</tr>
-				</tfoot>
-			</table>
-			<hr />
 		</div>
 	</Content>
 	<SideBar bind:showMenu />
