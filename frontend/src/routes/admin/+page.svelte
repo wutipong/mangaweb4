@@ -117,10 +117,11 @@
 			<div class="mt-4">
 				<h2>Maintenance</h2>
 
-				<table class="table">
+				<table class="table-zebra table-pin-rows table">
 					<thead>
 						<tr>
-							<th colspan="2">Operations </th>
+							<th>Operations</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -149,53 +150,45 @@
 							</td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<th colspan="2"> Operations </th>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 			<hr />
 			<h2>API Key</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Key</th>
-						<th>Created At</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each apiKeys as apiKey}
+			<div class="border-base-300 rounded-box h-96 overflow-x-auto border">
+				<table class="table-zebra table-pin-rows table">
+					<thead>
 						<tr>
-							<td>{apiKey.start}...</td>
-							<td>{apiKey.createdAt.toLocaleString()}</td>
-							<td>
-								<button class="btn btn-sm btn-secondary" onclick={() => deleteApiKey(apiKey.id)}>
-									<Icon path={mdiKeyRemove} />Delete
-								</button>
-							</td>
+							<th>Key</th>
+							<th>Created At</th>
+							<th>Action</th>
 						</tr>
-					{/each}
-					<tr>
-						<td></td>
-						<td></td>
-						<td>
-							<button class="btn btn-sm btn-primary" onclick={() => addNewApiKey()}>
-								<Icon path={mdiKeyPlus} />Add
-							</button>
-						</td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Key</th>
-						<th>Created At</th>
-						<th>Action</th>
-					</tr>
-				</tfoot>
-			</table>
+					</thead>
+					<tbody>
+						{#each apiKeys as apiKey}
+							<tr>
+								<td>{apiKey.start}...</td>
+								<td>{apiKey.createdAt.toLocaleString()}</td>
+								<td>
+									<button class="btn btn-sm btn-secondary" onclick={() => deleteApiKey(apiKey.id)}>
+										<Icon path={mdiKeyRemove} />Delete
+									</button>
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+					<tfoot>
+						<tr>
+							<th></th>
+							<th></th>
+							<th>
+								<button class="btn btn-sm btn-primary" onclick={() => addNewApiKey()}>
+									<Icon path={mdiKeyPlus} />Add
+								</button>
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 			<hr />
 		</div>
 	</Content>
