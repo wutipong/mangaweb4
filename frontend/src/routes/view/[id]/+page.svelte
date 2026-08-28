@@ -207,7 +207,7 @@
 			onMovedToPage={(i: number) => viewer.moveToPage(i)}
 		/>
 	</Content>
-	<SideBar bind:showMenu>
+	<SideBar bind:showMenu user={data.user}>
 		<ul class="menu">
 			<li class="text">
 				<div class="tooltip tooltip-left" data-tip={data.response.name}>

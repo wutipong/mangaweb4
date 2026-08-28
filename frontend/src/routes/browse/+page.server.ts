@@ -6,7 +6,6 @@ import { MangaClient } from '$lib/grpc/manga.client';
 import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
 import logger from '$lib/logger';
-import auth from '$lib/auth.server';
 
 function createDefaultRequest(): {
 	user: string;

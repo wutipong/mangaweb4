@@ -28,7 +28,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	logger.debug(backendInfo.request, 'backend information request');
 	logger.debug(backendInfo.response, 'backend information response');
 
-	return { ...user, ...userInfo.response, backend: backendInfo.response };
+	return { ...userInfo.response, backend: backendInfo.response };
 };
 
 export const prerender = false;

@@ -5,6 +5,7 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { genericOAuth } from 'better-auth/plugins';
 import { apiKey } from '@better-auth/api-key';
+import { admin } from 'better-auth/plugins';
 import 'dotenv/config';
 
 // Create a safe build-time / initial module load validation proxy
@@ -17,6 +18,7 @@ export const auth = betterAuth({
 		options: '-c search_path=auth'
 	}),
 	plugins: [
+		admin(),
 		sveltekitCookies(getRequestEvent),
 		apiKey({
 			rateLimit: { enabled: false },

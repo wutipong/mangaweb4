@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import type { PageData } from './$types';
-	import Toast from '$lib/components/Toast.svelte';
-	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
-
 	import Icon from 'mdi-svelte';
-	import { mdiPlayCircle, mdiGithub } from '@mdi/js';
+	import { mdiGithub } from '@mdi/js';
 
 	import NavBar from '$lib/components/NavBar.svelte';
 	import Container from '$lib/components/Container.svelte';
@@ -17,52 +13,6 @@
 	}
 
 	let { data }: Props = $props();
-
-	let toast: Toast;
-	let confirm: ConfirmDialog;
-
-	function confirmUpdateLibrary() {
-		confirm.show(
-			'Update library',
-			'The library will be updated. This will take sometime. Do you still wants to perform?',
-			updateLibrary
-		);
-	}
-
-	async function updateLibrary() {
-		const url = new URL('/api/maintenance/update_library', page.url.origin);
-		await fetch(url);
-
-		toast.add('Updating the library in progress. Please refresh after a few minutes.', 'info');
-	}
-
-	function confirmPurgeCache() {
-		confirm.show(
-			'Purge cache',
-			'Cache will be purged. This will take sometime. Do you still wants to perform?',
-			purgeCache
-		);
-	}
-
-	async function purgeCache() {
-		const url = new URL('/api/maintenance/purge_cache', page.url.origin);
-		await fetch(url);
-		toast.add('Purging cache in progress. Please refresh after a few minutes.', 'info');
-	}
-
-	function confirmPopulateTags() {
-		confirm.show(
-			'Repopulate tags',
-			'Tags list will be updated. This will take sometime. Do you still wants to perform?',
-			populateTags
-		);
-	}
-
-	async function populateTags() {
-		const url = new URL('/api/maintenance/populate_tags', page.url.origin);
-		await fetch(url);
-		toast.add('Re-populate tags in progress. Please refresh after a few minutes.', 'info');
-	}
 
 	let showMenu = $state(false);
 </script>
@@ -80,7 +30,7 @@
 		<div class="prose container mx-auto mt-4 max-w-5xl">
 			<h1>MangaWeb 4</h1>
 
-			<a class="btn" href="https://github.com/mangaweb4">
+			<a class="btn" href="https://github.com/wutipong/mangaweb4">
 				<Icon path={mdiGithub} />&nbsp;Github
 			</a>
 
@@ -107,46 +57,6 @@
 					OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 					DEALINGS IN THE SOFTWARE.
 				</p>
-			</div>
-
-			<hr />
-
-			<div class="mt-4">
-				<h2>Maintenance</h2>
-
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="2"> Maintenance Operations </th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="align-middle"> Update library </td>
-							<td>
-								<button class="btn btn-warning" onclick={() => confirmUpdateLibrary()}>
-									<Icon path={mdiPlayCircle} />&nbsp;Run
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td class="align-middle"> Repopulate tags </td>
-							<td>
-								<button class="btn btn-warning" onclick={() => confirmPopulateTags()}>
-									<Icon path={mdiPlayCircle} />&nbsp;Run
-								</button>
-							</td>
-						</tr>
-						<tr>
-							<td class="align-middle"> Purge caches </td>
-							<td>
-								<button class="btn btn-warning" onclick={() => confirmPurgeCache()}>
-									<Icon path={mdiPlayCircle} />&nbsp;Run
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 
 			<hr />
@@ -196,9 +106,5 @@
 			</div>
 		</div>
 	</Content>
-	<SideBar bind:showMenu />
+	<SideBar bind:showMenu user={data.user} />
 </Container>
-
-<ConfirmDialog bind:this={confirm} />
-
-<Toast bind:this={toast} />
