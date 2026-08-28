@@ -17,10 +17,11 @@ export const auth = betterAuth({
 		options: '-c search_path=auth'
 	}),
 	plugins: [
-		apiKey({
-			rateLimit: { enabled: false }
-		}),
 		sveltekitCookies(getRequestEvent),
+		apiKey({
+			rateLimit: { enabled: false },
+			enableSessionForAPIKeys: true
+		}),
 		genericOAuth({
 			config: [
 				{
@@ -34,5 +35,3 @@ export const auth = betterAuth({
 		})
 	]
 });
-
-export default () => auth;
