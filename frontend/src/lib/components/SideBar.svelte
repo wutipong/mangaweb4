@@ -4,9 +4,20 @@
 	import { browseURL, tagURL, historyURL, userURL, aboutURL } from '$lib/routes';
 
 	import Icon from 'mdi-svelte';
-	import { mdiBookshelf, mdiTagMultiple, mdiHistory, mdiAccount, mdiInformation } from '@mdi/js';
+	import {
+		mdiBookshelf,
+		mdiTagMultiple,
+		mdiHistory,
+		mdiAccount,
+		mdiInformation,
+		mdiShieldCrown
+	} from '@mdi/js';
 
 	let { children = undefined, showMenu = $bindable() } = $props();
+
+	function adminUrl(origin: string): string | URL {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 <div class="drawer-side z-3">
@@ -41,6 +52,11 @@
 			<li class="list-row">
 				<button onclick={() => goto(userURL(page.url.origin))}>
 					<Icon path={mdiAccount} />User
+				</button>
+			</li>
+			<li class="list-row">
+				<button onclick={() => goto(adminUrl(page.url.origin))}>
+					<Icon path={mdiShieldCrown} /> Administration
 				</button>
 			</li>
 			<li class="list-row">

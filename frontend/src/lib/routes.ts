@@ -17,6 +17,10 @@ export function userURL(base: URL | string): URL {
 	return new URL('/user', base);
 }
 
+export function adminURL(base: URL | string): URL {
+	return new URL('/admin', base);
+}
+
 export function tagURL(
 	base: URL | string,
 	options?: {
