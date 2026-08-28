@@ -75,7 +75,7 @@
 			<ItemCardGrid bind:items bind:updated accessTime={true} />
 		</div>
 	</Content>
-	<SideBar bind:showMenu />
+	<SideBar bind:showMenu user={data.user} />
 </Container>
 
 <LoadingDialog bind:this={loadingDlg} />

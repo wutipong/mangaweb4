@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
-	import { browseURL, tagURL, historyURL, userURL, aboutURL } from '$lib/routes';
+	import { browseURL, tagURL, historyURL, userURL, aboutURL, adminURL } from '$lib/routes';
 
 	import Icon from 'mdi-svelte';
 	import {
@@ -13,11 +13,7 @@
 		mdiShieldCrown
 	} from '@mdi/js';
 
-	let { children = undefined, showMenu = $bindable() } = $props();
-
-	function adminUrl(origin: string): string | URL {
-		throw new Error('Function not implemented.');
-	}
+	let { children = undefined, showMenu = $bindable(), user = undefined } = $props();
 </script>
 
 <div class="drawer-side z-3">
@@ -54,11 +50,13 @@
 					<Icon path={mdiAccount} />User
 				</button>
 			</li>
-			<li class="list-row">
-				<button onclick={() => goto(adminUrl(page.url.origin))}>
-					<Icon path={mdiShieldCrown} /> Administration
-				</button>
-			</li>
+			{#if user && user.role == 'admin'}
+				<li class="list-row">
+					<button onclick={() => goto(adminURL(page.url.origin))}>
+						<Icon path={mdiShieldCrown} /> Administration
+					</button>
+				</li>
+			{/if}
 			<li class="list-row">
 				<button onclick={() => goto(aboutURL(page.url.origin))}>
 					<Icon path={mdiInformation} />About

@@ -140,7 +140,7 @@
 			</div>
 		</div>
 	</Content>
-	<SideBar bind:showMenu></SideBar>
+	<SideBar bind:showMenu user={data.user}></SideBar>
 </Container>
 
 <LoadingDialog bind:this={loadingDlg} />

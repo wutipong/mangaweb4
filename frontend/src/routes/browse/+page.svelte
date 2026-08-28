@@ -27,6 +27,8 @@
 
 	let { data }: Props = $props();
 
+	$inspect(data);
+
 	let filter = $derived(data.request.filter);
 	let items = $derived.by(() =>
 		data.response.items.map((i) => {
@@ -103,7 +105,7 @@
 			</div>
 		</div>
 	</Content>
-	<SideBar bind:showMenu></SideBar>
+	<SideBar bind:showMenu user={data.user}></SideBar>
 </Container>
 
 <dialog class="modal modal-top" bind:this={filterDialog}>

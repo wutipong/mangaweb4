@@ -22,6 +22,8 @@
 	let toast: Toast;
 	let confirm: ConfirmDialog;
 
+	let { data } = $props();
+
 	onMount(async () => {
 		const keys = await authClient.apiKey.list();
 		if (keys.data) {
@@ -118,7 +120,7 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="2"> Maintenance Operations </th>
+							<th colspan="2">Operations </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -147,8 +149,14 @@
 							</td>
 						</tr>
 					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="2"> Operations </th>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
+			<hr />
 			<h2>API Key</h2>
 			<table>
 				<thead>
@@ -164,7 +172,7 @@
 							<td>{apiKey.start}...</td>
 							<td>{apiKey.createdAt.toLocaleString()}</td>
 							<td>
-								<button class="btn btn-sm" onclick={() => deleteApiKey(apiKey.id)}>
+								<button class="btn btn-sm btn-secondary" onclick={() => deleteApiKey(apiKey.id)}>
 									<Icon path={mdiKeyRemove} />Delete
 								</button>
 							</td>
@@ -191,7 +199,7 @@
 			<hr />
 		</div>
 	</Content>
-	<SideBar bind:showMenu />
+	<SideBar bind:showMenu user={data.user} />
 </Container>
 
 <dialog class="modal" bind:this={apiKeyModal}>
@@ -199,9 +207,9 @@
 		<h3 class="text-lg font-bold">New key added</h3>
 		<div role="alert" class="alert alert-warning py-4">
 			<Icon path={mdiAlert} />
-			<span
-				>Warning: This API key will not be visible again! The key has been copied to the clipboard.</span
-			>
+			<span>
+				Warning: This API key will not be visible again! The key has been copied to the clipboard.
+			</span>
 		</div>
 		<p class="py-4 font-mono text-wrap break-all">{apiNewKey}</p>
 		<div class="modal-action">

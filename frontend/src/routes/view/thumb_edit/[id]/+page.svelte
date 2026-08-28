@@ -93,7 +93,7 @@
 			</ol>
 		</div>
 	</Content>
-	<SideBar bind:showMenu>
+	<SideBar bind:showMenu user={data.user}>
 		<ul class="menu">
 			<li>
 				<button onclick={() => goto(viewURL(page.url, data.request.id))}>

@@ -129,7 +129,7 @@
 			</div>
 		</div>
 	</Content>
-	<SideBar bind:showMenu />
+	<SideBar bind:showMenu user={data.user} />
 </Container>
 
 <dialog class="modal" bind:this={apiKeyModal}>

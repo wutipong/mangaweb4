@@ -31,5 +31,5 @@
 			</p>
 		</div>
 	</Content>
-	<SideBar bind:showMenu></SideBar>
+	<SideBar bind:showMenu user={undefined}></SideBar>
 </Container>
