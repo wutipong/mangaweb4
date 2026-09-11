@@ -12,7 +12,7 @@ require (
 	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa
 	google.golang.org/grpc v1.83.2
 	google.golang.org/protobuf v1.36.12
-	modernc.org/sqlite v1.57.0
+	modernc.org/sqlite v1.58.0
 )
 
 require (
@@ -31,7 +31,6 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
-	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.15 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
