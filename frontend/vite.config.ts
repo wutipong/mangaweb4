@@ -2,7 +2,6 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
 import tailwindcss from '@tailwindcss/vite';
-import customLogger from './logger';
 
 const isDevContainer = process.env.IS_DEV_CONTAINER === 'true';
 
@@ -101,7 +100,6 @@ export default defineConfig(({ mode }) => {
 				}
 			})
 		],
-		customLogger: customLogger,
 		ssr: { noExternal: ['@popperjs/core'] },
 		test: {
 			include: ['src/**/*.{test,spec}.{js,ts}']
