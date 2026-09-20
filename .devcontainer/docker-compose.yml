@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ..:/workspaces/${localWorkspaceFolderBasename:-mangaweb4}:cached
+      - ..:/workspaces:cached
       # Persist the Go module/build cache between rebuilds.
       - go-mod-cache:/go/pkg/mod
       - go-build-cache:/home/vscode/.cache/go-build
@@ -34,6 +34,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   db:
     image: postgres:17-alpine
