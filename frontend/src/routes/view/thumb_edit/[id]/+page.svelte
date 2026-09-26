@@ -12,12 +12,18 @@
 	import { mdiBookOpen } from '@mdi/js';
 	import { goto } from '$app/navigation';
 	import { viewURL } from '$lib/routes';
+	import { $enum as enumUtil } from 'ts-enum-util';
+	import { ImageQuality } from '$lib/grpc/types.js';
 
 	function createImageUrl(id: number, page: number, base: string | URL): URL {
 		const url = new URL('/api/manga/page_image', base);
 
 		url.searchParams.append('id', id.toString());
 		url.searchParams.set('i', page.toString());
+		url.searchParams.append(
+			'quality',
+			enumUtil(ImageQuality).getKeyOrDefault(ImageQuality.ORIGINAL, 'ORIGINAL')
+		);
 
 		return url;
 	}
