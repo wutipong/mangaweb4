@@ -15,12 +15,9 @@ export const GET: RequestHandler = async ({ request, locals }) => {
 	const url = new URL(request.url);
 
 	const id = parseInt(url.searchParams.get('id') ?? '') ?? 0;
-	const user = locals.user;
 	const page = Number.parseInt(url.searchParams.get('page') ?? '') ?? 0;
 
-	logger.debug({ id: id, user: user.email, page }, 'set progress parameter');
-
-	const { response } = await client.setProgress({ id: id, user, page });
+	const { response } = await client.setProgress({ id: id, user: locals.user.email, page });
 
 	return new Response(JSON.stringify(response));
 };
