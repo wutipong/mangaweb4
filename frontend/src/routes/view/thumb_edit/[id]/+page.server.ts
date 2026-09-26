@@ -10,8 +10,6 @@ export const prerender = false;
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const { id } = params;
 
-	const user = locals.user;
-
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -26,7 +24,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const call = await client.detail({
 		id: idValue,
-		user: user
+		user: locals.user.email
 	});
 
 	return {

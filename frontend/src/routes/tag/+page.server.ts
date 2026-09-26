@@ -32,7 +32,6 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 	const req = await createDefaultRequest(locals);
 
 	let { search, filter, page, item_per_page, order, sort } = req;
-	const user = req.user;
 
 	const params = url.searchParams;
 	if (params.has('sort')) {
@@ -66,7 +65,7 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 
 	const client = new TagClient(transport);
 	const call = await client.list({
-		user: user,
+		user: locals.user.email,
 		filter: filter,
 		page: page,
 		itemPerPage: item_per_page,

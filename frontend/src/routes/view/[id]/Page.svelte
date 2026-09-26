@@ -32,8 +32,6 @@
 	}
 
 	function onImageLoad() {
-		logger.debug(`img: ${alt} is loaded.`);
-
 		if (!loaded) onLoaded();
 		loaded = true;
 	}

@@ -42,7 +42,7 @@
 				type="range"
 				class="range mx-2 flex-1 place-self-center"
 				min="0"
-				max={length}
+				max={length - 1}
 				bind:value={current}
 				onchange={(e: Event) => onMovedToPage((e.target as HTMLInputElement).value)}
 			/>
