@@ -12,8 +12,6 @@ export const load: PageServerLoad = async ({ request, cookies, params, locals })
 	const { id } = params;
 	const idNo = parseInt(id);
 
-	const user = locals.user;
-
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -23,7 +21,7 @@ export const load: PageServerLoad = async ({ request, cookies, params, locals })
 
 	const call = await client.detail({
 		id: idNo,
-		user: user
+		user: locals.user.email
 	});
 
 	const options = getViewOptions(cookies);

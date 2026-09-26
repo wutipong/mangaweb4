@@ -12,7 +12,6 @@ export const load: PageServerLoad = async ({ request, url, cookies, params, loca
 	const id = parseInt(params.id ?? '');
 
 	const searchParams = url.searchParams;
-	const user = locals.user;
 	const filter = $enum(Filter).getValueOrDefault(searchParams.get('filter'), Filter.UNKNOWN);
 	const sort = $enum(SortField).getValueOrDefault(
 		searchParams.get('sort'),
@@ -33,7 +32,7 @@ export const load: PageServerLoad = async ({ request, url, cookies, params, loca
 	const client = new TagClient(transport);
 
 	const call = await client.detail({
-		user: user,
+		user: locals.user.email,
 		id: id,
 		filter: filter,
 		page: page,

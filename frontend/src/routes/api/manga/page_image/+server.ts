@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ request, cookies, url, locals }) => 
 		ImageQuality.HIGH
 	);
 
-	const stream = client.pageImageStream({ id: id, user, index, quality });
+	const stream = client.pageImageStream({ id: id, user: user.email, index, quality });
 
 	let filename = '';
 	let contentType = '';

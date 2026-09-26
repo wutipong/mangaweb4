@@ -7,8 +7,6 @@ import { UserClient } from '$lib/grpc/user.client';
 import { SystemClient } from '$lib/grpc/system.client';
 
 export const load: PageServerLoad = async ({ locals }) => {
-	const user = locals.user;
-
 	const transport = new GrpcTransport({
 		host: variables().apiBasePath,
 		channelCredentials: ChannelCredentials.createInsecure()
@@ -16,7 +14,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 	const client = new UserClient(transport);
 	const userInfo = await client.info({
-		user: user.email
+		user: locals.user.email
 	});
 
 	logger.debug(userInfo.request, 'user information request');

@@ -6,6 +6,7 @@ import { MangaClient } from '$lib/grpc/manga.client';
 import { Filter, SortField, SortOrder } from '$lib/grpc/types';
 import { $enum } from 'ts-enum-util';
 import logger from '$lib/logger';
+import { log } from 'console';
 
 function createDefaultRequest(): {
 	user: string;
@@ -67,6 +68,8 @@ export const load: PageServerLoad = async ({ url, locals }) => {
 			search = v;
 		}
 	}
+
+	logger.debug(locals.user.email);
 
 	const call = await client.list({
 		user: locals.user.email,

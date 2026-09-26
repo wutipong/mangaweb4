@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
 	const { response } = await client.setFavorite({
 		id: id,
-		user,
+		user: user.email,
 		favorite
 	});
 
