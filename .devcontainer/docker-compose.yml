@@ -34,8 +34,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   db:
     image: postgres:17-alpine
@@ -61,17 +59,9 @@ services:
     volumes:
       - ./dex-config.yaml:/etc/dex/cfg/config.yaml:ro
     ports:
-      - "5556:5556" # Maps the browser-facing localhost:5556 port
-    networks:
-      default:
-        aliases:
-          - oidc.localhost
+      - "5556:5556"
 
 volumes:
   postgres-data:
   go-mod-cache:
   go-build-cache:
-
-networks:
-  mangaweb:
-    driver: bridge
